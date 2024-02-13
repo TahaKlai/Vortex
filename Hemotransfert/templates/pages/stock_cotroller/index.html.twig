@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Stock de sang{% endblock %}
+
+{% block body %}
+ 
+ <div class="container mt-4">
+ <h1> stock de sang <h1>
+ <a href="{{path('stock.new')}}" class="btn btn-primary">
+ creer un stock
+</a>
+
+
+    {% for message in app.flashes('success') %}
+      <div class="alert alert-success mt-4">
+        {{ message }}
+      </div>
+    {% endfor %}
+
+ <div class="count mt-4">
+  <h4>
+   <small> il y a {{ stock.getTotalItemCount }} dans le stock</small>
+   </h4>
+</div>
+ <table class="table table-hover mt-4">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">type</th>
+      <th scope="col">quantite</th>
+      <th scope="col">etat</th>
+      <th scope="col">origine</th>
+      <th scope="col"> edition </th>
+      <th scope="col"> supression</th>
+
+
+
+
+    </tr>
+  </thead>
+  <tbody>
+   {% for stock in stock %}
+    <tr class="table-primary">
+          <td>{{stock.id}}</td>
+      <td>{{stock.type}}</td>
+      <td>{{stock.quantite}}</td>
+      <td>{{stock.etat}}</td>
+      <td>{{stock.origine}}</td>
+      <td>
+      <a href="{{path('stock.edit',{id:stock.id})}}" class="btn.btn-info">Modifier</a>
+      </td>
+      <td>
+      <a href="{{path('stock.delete',{id:stock.id})}}" class="btn.btn-warning">supprimer</a>
+      </td>
+    </tr>
+   {% endfor %}
+  </tbody>
+</table>
+<div class="navigation d-flex justify-content-center">
+    {{ knp_pagination_render(stock) }}
+    
+</div>
+ </div>
+{% endblock %}     

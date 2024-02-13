@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+     <h1 class="mt-4"> Creation d'un stock </h1>
+
+
+{{ form_start(form) }}
+   
+
+     <div class="form-group">
+     {{form_label(form.type)}}
+      {{form_widget(form.type)}}
+       {{ form_errors(form.type) }}
+    </div>
+     <div class="form-group">
+     {{form_label(form.quantite)}}
+      {{form_widget(form.quantite)}}
+       {{ form_errors(form.quantite) }}
+    </div>
+     <div class="form-group">
+     {{form_label(form.etat)}}
+      {{form_widget(form.etat)}}
+       {{ form_errors(form.etat) }}
+    </div>
+     <div class="form-group">
+     {{form_label(form.origine)}}
+      {{form_widget(form.origine)}}
+       {{ form_errors(form.origine) }}
+    </div>
+
+<div class="form-group">
+  {{form_row(form.submit)}}
+
+</div>
+    </div>
+{{ form_end(form) }}
+
+
+
+
+</div>
+
+{% endblock %}
