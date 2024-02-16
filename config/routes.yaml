@@ -1,0 +1,58 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+controllers:
+    resource: '../src/Controller/'
+    type: annotation
+
+app_company_new:
+    path: '/company/new'
+    controller: 'App\Controller\CompanyController::new'
+    methods: ['GET', 'POST']
+
+company_show:
+    path: '/company/show'
+    controller: 'App\Controller\CompanyController::showCompanies'
+    methods: ['GET']
+
+company_show_one:
+    path: '/company/{id}'
+    controller: 'App\Controller\CompanyController::showCompany'
+    methods: ['GET']
+company_remove:
+    path: '/company/show/{id}/remove'
+    controller: 'App\Controller\CompanyController::removeCompany'
+    methods: ['DELETE']
+
+
+update_company:
+    path: '/company/{id}'
+    controller: 'App\Controller\CompanyController::updateCompany'
+    methods: ['GET', 'POST']
+
+
+volunteer_new:
+    path: '/volunteer/new'
+    controller: 'App\Controller\VolunteerController::new'
+    methods: ['GET', 'POST']
+
+volunteer_show:
+    path: '/volunteer/show'
+    controller: 'App\Controller\VolunteerController::showVolunteers'
+    methods: ['GET']
+
+volunteer_show_one:
+    path: '/volunteer/{id}'
+    controller: 'App\Controller\VolunteerController::showVolunteer'
+    methods: ['GET']
+
+delete_volunteer:
+    path: '/volunteer/remove/{id}'
+    controller: 'App\Controller\VolunteerController::removeVolunteer'
+    methods: ['DELETE']
+
+
+update_volunteer:
+    path: '/volunteer/{id}'
+    controller: 'App\Controller\VolunteerController::updateVolunteer'
+    methods: ['GET', 'POST']
