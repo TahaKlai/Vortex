@@ -1,0 +1,57 @@
+{# templates/admin/volunteer/list.html.twig #}
+
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Liste des volontaires{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Liste des volontaires</h1>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom complet</th>
+                        <th>Adresse</th>
+                        <th>Numéro de téléphone</th>
+                        <th>Adresse e-mail</th>
+                        <th>Date de naissance</th>
+                        <th>Profession</th>
+                        <th>Compétences</th>
+                        <th>Disponibilité</th>
+                        <th>Actions</th> {# Add a new column for actions #}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for volunteer in volunteers %}
+
+                        <tr>
+                            <td>{{ volunteer.getIdV() }}</td>
+                            <td>{{ volunteer.getFullName() }}</td>
+                            <td>{{ volunteer.getVolunteerAddress() }}</td>
+                            <td>{{ volunteer.getPhoneNumber() }}</td>
+                            <td>{{ volunteer.getEmailAddress() }}</td>
+                            <td>{{ volunteer.getDateOfBirth()|date('Y-m-d') }}</td>
+                            <td>{{ volunteer.getOccupation() }}</td>
+                            <td>{{ volunteer.getSkills() }}</td>
+                            <td>
+    {% if volunteer.getAvailability() == 1 %}
+        disponible
+    {% else %}
+        non disponible
+    {% endif %}
+</td>
+
+                            <td>
+                                <a href="{{ path('volunteer_show_one', {'id': volunteer.getIdV()}) }}" class="btn btn-primary">Détails</a>
+                              <a href="{{ path('remove_volunteer', {'id': volunteer.getIdV()}) }}" class="btn btn-danger">Supprimer</a>
+
+
+                            </td>  </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

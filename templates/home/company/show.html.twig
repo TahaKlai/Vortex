@@ -1,0 +1,66 @@
+{% extends 'home/base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">Company Details</h1>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="name" class="col-sm-3 col-form-label">Name:</label>
+                            <div class="col-sm-9">
+                                <p>{{ company.getNomC }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="address" class="col-sm-3 col-form-label">Address:</label>
+                            <div class="col-sm-9">
+                                <p>{{ company.getAdresse }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="phone" class="col-sm-3 col-form-label">Phone Number:</label>
+                            <div class="col-sm-9">
+                                <p>{{ company.getNumTel }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="email" class="col-sm-3 col-form-label">Email:</label>
+                            <div class="col-sm-9">
+                                <p>{{ company.getMail }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="website" class="col-sm-3 col-form-label">Website:</label>
+                            <div class="col-sm-9">
+                                <p>{{ company.getSiteWeb }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="country" class="col-sm-3 col-form-label">Country:</label>
+                            <div class="col-sm-9">
+                                <p>{{ company.getPaysC }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="description" class="col-sm-3 col-form-label">Description:</label>
+                            <div class="col-sm-9">
+                                <p>{{ company.getDescriptionC }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-9 offset-sm-3">
+                                <a href="{{ path('home_company_show', {'id': company.getIdC()}) }}" class="btn btn-primary">Show all Companies</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

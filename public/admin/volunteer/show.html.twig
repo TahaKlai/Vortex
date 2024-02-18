@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Volunteer Details{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">Volunteer Details</h1>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="{{ path('update_volunteer', {'id': volunteer.getIdV()}) }}">
+                            <div class="form-group row">
+                                <label for="full_name" class="col-sm-3 col-form-label">Full Name:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="full_name" name="full_name" value="{{ volunteer.getFullName }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="volunteer_address" class="col-sm-3 col-form-label">Address:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="volunteer_address" name="volunteer_address" value="{{ volunteer.getVolunteerAddress }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="phone_number" class="col-sm-3 col-form-label">Phone Number:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{ volunteer.getPhoneNumber }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="email_address" class="col-sm-3 col-form-label">Email:</label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" id="email_address" name="email_address" value="{{ volunteer.getEmailAddress }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="date_of_birth" class="col-sm-3 col-form-label">Date of Birth:</label>
+                                <div class="col-sm-9">
+                                   <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" value="{{ volunteer.getDateOfBirth|date("Y-m-d") }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="occupation" class="col-sm-3 col-form-label">Occupation:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="occupation" name="occupation" value="{{ volunteer.getOccupation }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="skills" class="col-sm-3 col-form-label">Skills:</label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" id="skills" name="skills" rows="5" required>{{ volunteer.getSkills }}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="availability" class="col-sm-3 col-form-label">Availability:</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" id="availability" name="availability" required>
+                                        <option value="1" {% if volunteer.getAvailability %} selected {% endif %}>Disponible</option>
+                                        <option value="0" {% if not volunteer.getAvailability %} selected {% endif %}>Non disponible</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-9 offset-sm-3">
+                                    <button type="submit" class="btn btn-primary">Update Details</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

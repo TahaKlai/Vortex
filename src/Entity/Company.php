@@ -3,11 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\CompanyRepository;
-
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use App\Entity\Company;
 use App\Form\CompanyType;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+
 
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -142,4 +144,40 @@ private ?int $Num_tel;
 
         return $this;
     }
+	
+/**
+ * @ORM\ManyToMany(targetEntity="App\Entity\Volunteer", mappedBy="companies")
+ */
+private $volunteers;
+
+
+    public function __construct()
+    {
+        $this->volunteers = new ArrayCollection();
+    }
+/**
+ * @return Collection
+ */
+public function getVolunteers(): Collection
+{
+    return $this->volunteers ?? new ArrayCollection();
+}
+public function addVolunteer(Volunteer $volunteer): self
+{
+    if (!$this->volunteers->contains($volunteer)) {
+        $this->volunteers[] = $volunteer;
+        $volunteer->addCompany($this);
+    }
+
+    return $this;
+}
+
+public function removeVolunteer(Volunteer $volunteer): self
+{
+    if ($this->volunteers->removeElement($volunteer)) {
+        $volunteer->removeCompany($this);
+    }
+
+    return $this;
+}
 }

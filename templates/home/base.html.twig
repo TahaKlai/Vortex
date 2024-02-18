@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  ================================================== -->
+  <meta charset="utf-8">
+
+  {% block title %}
+      <title>Vortex Home page</title>
+  {% endblock %}
+  
+  <!-- Mobile Specific Metas
+  ================================================== -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Bootstrap App Landing Template">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="author" content="Themefisher">
+  <meta name="generator" content="Themefisher Small Apps Template v1.0">
+  
+  <!-- theme meta -->
+  <meta name="theme-name" content="small-apps" />
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('home/images/favicon.png') }}" />
+  
+  <!-- PLUGINS CSS STYLE -->
+  <link rel="stylesheet" href="{{ asset('home/plugins/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('home/plugins/themify-icons/themify-icons.css') }}">
+  <link rel="stylesheet" href="{{ asset('home/plugins/slick/slick.css') }}">
+  <link rel="stylesheet" href="{{ asset('home/plugins/slick/slick-theme.css') }}">
+  <link rel="stylesheet" href="{{ asset('home/plugins/fancybox/jquery.fancybox.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('home/plugins/aos/aos.css') }}">
+
+  <!-- CUSTOM CSS -->
+  <link href="{{ asset('home/css/style.css') }}" rel="stylesheet">
+
+</head>
+
+<body class="body-wrapper" data-spy="scroll" data-target=".privacy-nav">
+
+<nav class="navbar main-nav navbar-expand-lg px-2 px-sm-0 py-2 py-lg-0">
+  <div class="container">
+<a class="navbar-brand" href="{{ path('home') }}">
+    <img src="{{ asset('home/images/logo.png') }}" alt="logo" style="width: 100px; height: auto;">
+</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="ti-menu"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown active">
+          <a class="nav-link" href="{{ path('home') }}" >Home</a>
+        </li>
+        <li class="nav-item dropdown @@pages">
+          <a class="nav-link dropdown-toggle" href="{{ path('home') }}" data-toggle="dropdown">Pages
+            <span><i class="ti-angle-down"></i></span>
+          </a>
+          <!-- Dropdown list -->
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item @@team" href="{{ path('app_company_new') }}">Admin Page</a></li>
+            <li><a class="dropdown-item @@career" href="{{ path('home_company_show') }}">Show companies</a></li>
+            <li><a class="dropdown-item @@blog" href="{{ path('home') }}">Blog</a></li>
+            <li><a class="dropdown-item @@blogSingle" ">Blog Single</a></li>
+            <li><a class="dropdown-item @@privacy" href="{{ path('home') }}"">Privacy</a></li>
+            <li><a class="dropdown-item @@faq" ">FAQ</a></li>
+            <li><a class="dropdown-item" ">Sign In</a></li>
+            <li><a class="dropdown-item" ">Sign Up</a></li>
+            <li><a class="dropdown-item" ">404</a></li>
+          </ul>
+        </li>
+        <li class="nav-item @@about">
+          <a class="nav-link"href="{{ path('home') }}" ">About</a>
+        </li>
+        <li class="nav-item @@contact">
+          <a class="nav-link" href="{{ path('home') }}"">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!--====================================
+=            Hero Section            =
+=====================================-->
+{% block body %}
+
+{% endblock %}
+
+<!--============================
+=            Footer            =
+=============================-->
+<footer>
+  <div class="footer-main">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-12 m-md-auto align-self-center">
+          <div class="block">
+            <a href="{{ path('home') }}"><img src="{{ asset('home/images/logo-alt.png') }}" alt="footer-logo"></a>
+            <!-- Social Site Icons -->
+            <ul class="social-icon list-inline">
+              <li class="list-inline-item">
+                <a href="#"><i class="ti-facebook"></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-3 col-6 mt-5 mt-lg-0">
+          <div class="block-2">
+            <!-- heading -->
+            <h6>Product</h6>
+            <!-- links -->
+            <ul>
+              <li>Teams</li>
+              <li>Blogs</li>
+              <li>FAQs</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-3 col-6 mt-5 mt-lg-0">
+          <div class="block-2">
+            <!-- heading -->
+            <h6>Resources</h6>
+            <!-- links -->
+            <ul>
+              <li>Signup</li>
+              <li>Login</li>
+              <li>Blog</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-3 col-6 mt-5 mt-lg-0">
+          <div class="block-2">
+            <!-- heading -->
+            <h6>Company</h6>
+            <!-- links -->
+            <ul>
+              <li>Career</li>
+              <li>Contact</li>
+              <li>Investor</li>
+              <li>Terms</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-3 col-6 mt-5 mt-lg-0">
+          <div class="block-2">
+            <!-- heading -->
+            <h6>Company</h6>
+            <!-- links -->
+            <ul>
+              <li>About</li>
+              <li>Contact</li>
+              <li>Team</li>
+              <li>Privacy Policy</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center bg-dark py-4">
+    <small class="text-secondary">Copyright &copy; <script>document.write(new Date().getFullYear())</script>. Designed &amp; Developed by Vortex Team</a></small>
+  </div>
+</footer>
+
+<!-- To Top -->
+<div class="scroll-top-to">
+  <i class="ti-angle-up"></i>
+</div>
+
+<!-- JAVASCRIPTS -->
+<script src="{{ asset('home/plugins/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('home/plugins/bootstrap/bootstrap.min.js') }}"></script>
+<script src="{{ asset('home/plugins/slick/slick.min.js') }}"></script>
+<script src="{{ asset('home/plugins/fancybox/jquery.fancybox.min.js') }}"></script>
+<script src="{{ asset('home/plugins/syotimer/jquery.syotimer.min.js') }}"></script>
+<script src="{{ asset('home/plugins/aos/aos.js') }}"></script>
+<!-- google map -->
+
+<script src="{{ asset('home/js/script.js') }}"></script>
+</body>
+</html>

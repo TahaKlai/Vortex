@@ -1,14 +1,15 @@
 <?php
 
 namespace App\Entity;
-
+use App\Entity\Company;
 use App\Repository\VolunteerRepository;
 use App\Entity\Volunteer;
 use App\Form\VolunteerType;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 #[ORM\Entity(repositoryClass: VolunteerRepository::class)]
 class Volunteer
 {
@@ -49,7 +50,19 @@ class Volunteer
 
     #[ORM\Column(type: "boolean")]
     private $availability;
+  #[ORM\Column(type: "integer")]
+private $company_id;
 
+/**
+ * @ORM\ManyToMany(targetEntity=Company::class, mappedBy="volunteers")
+ */
+private $companies;
+
+
+    public function __construct()
+    {
+        $this->companies = new ArrayCollection();
+    }
     public function getIdV(): ?int
     {
         return $this->id_v;
@@ -147,6 +160,55 @@ class Volunteer
     public function setAvailability(bool $availability): self
     {
         $this->availability = $availability;
+
+        return $this;
+    }
+	
+	/**
+ * @return Collection|int[]
+ */
+public function getCompanies(): Collection
+{
+    $companyIds = [];
+    foreach ($this->companies as $company) {
+        $companyIds[] = $company->getIDC();
+    }
+    return $companyIds;
+}
+
+    public function addCompany(Company $company): self
+    {
+        if (!$this->companies->contains($company)) {
+            $this->companies[] = $company;
+            $company->addVolunteer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompany(Company $company): self
+    {
+        if ($this->companies->removeElement($company)) {
+            $company->removeVolunteer($this);
+        }
+
+        return $this;
+    }
+
+    public function getCompanyId(): ?int
+    {
+        return $this->company_id ;
+    }
+
+    public function setCompanyId($company): self
+    {
+        if ($company instanceof Company) {
+            $this->company_id  = $company->getIDC();
+        } elseif (is_int($company)) {
+            $this->company_id  = $company;
+        } else {
+            throw new \InvalidArgumentException('Invalid argument type for setCompanyId');
+        }
 
         return $this;
     }

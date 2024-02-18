@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Repository\VolunteerRepository;
 use App\Entity\Volunteer;
-
+use App\Entity\Company;
 use App\Form\VolunteerType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
+
 class VolunteerController extends AbstractController
 {
     private $entityManager;
@@ -23,19 +25,23 @@ class VolunteerController extends AbstractController
         $this->volunteerRepository = $volunteerRepository;
     }
 
-    #[Route('/volunteer/new', name: 'volunteer_new')]
+    #[Route('/admin/volunteer/new', name: 'volunteer_new')]
     public function new(Request $request): Response
     {
         $volunteer = new Volunteer();
         $form = $this->createForm(VolunteerType::class, $volunteer);
         $form->handleRequest($request);
-    
+        $volunteers = $this->getDoctrine()->getRepository(Volunteer::class)->findAll();
+
+
         if ($form->isSubmitted() && $form->isValid()) {
             $phoneNumber = $form->get('phone_number')->getData();
             if (!is_numeric($phoneNumber)) {
                 $form->get('phone_number')->addError(new FormError('Le numéro de téléphone doit être un nombre positif.'));
-                return $this->render('volunteer/new.html.twig', [
+                return $this->render('admin/volunteer/new.html.twig', [
                     'form' => $form->createView(),
+					'volunteer' => $volunteer,
+					'volunteers' => $volunteers,
                 ]);
             }
     
@@ -45,37 +51,50 @@ class VolunteerController extends AbstractController
             return $this->redirectToRoute('volunteer_show', ['id' => $volunteer->getIdV()]);
         }
     
-        return $this->render('volunteer/new.html.twig', [
+        return $this->render('admin/volunteer/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }
     
-    #[Route('/volunteer/show', name: 'volunteer_show')]
+    #[Route('/admin/volunteer/show', name: 'volunteer_show')]
     public function showVolunteers(): Response
     {
         $volunteers = $this->volunteerRepository->findAll();
 
-        return $this->render('volunteer/list.html.twig', [
+        return $this->render('admin/volunteer/list.html.twig', [
             'volunteers' => $volunteers,
         ]);
     }
 
-    #[Route('/volunteer/{id}', name: 'volunteer_show_one')]
-    public function showVolunteer(int $id): Response
-    {
-        $volunteer = $this->volunteerRepository->find($id);
-
-        if (!$volunteer) {
-            throw $this->createNotFoundException('No volunteer found with id '.$id);
-        }
-
-        return $this->render('volunteer/show.html.twig', [
-            'volunteer' => $volunteer,
-        ]);
+   #[Route('/admin/volunteer/{id}', name: 'volunteer_show_one')]
+    public function showVolunteer(int $id, Request $request): Response
+{
+    $volunteer = $this->volunteerRepository->find($id);
+    if (!$volunteer) {
+        throw $this->createNotFoundException('No volunteer found with id '.$id);
     }
 
+    $form = $this->createForm(VolunteerType::class, $volunteer);
+    
+    $form->handleRequest($request); 
 
-    #[Route('/volunteer/remove/{id}', name: 'remove_volunteer')]
+    if ($form->isSubmitted() && $form->isValid()) {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($volunteer);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('volunteer_show_one', ['id' => $id]);
+    }
+
+    return $this->render('admin/volunteer/show.html.twig', [
+        'volunteer' => $volunteer,
+        'form' => $form->createView(),
+    ]);
+}
+
+
+
+    #[Route('/admin/volunteer/remove/{id}', name: 'remove_volunteer')]
     public function removeVolunteer($id): Response
     {
         $volunteer = $this->volunteerRepository->find($id);
@@ -89,7 +108,7 @@ class VolunteerController extends AbstractController
         return $this->redirectToRoute('volunteer_show');
     }
 
-    #[Route('/volunteer/{id}', name: 'update_volunteer')]
+   #[Route('/admin/volunteer/{id}', name: 'update_volunteer')]
     public function updateVolunteer(Request $request, EntityManagerInterface $entityManager, $id): Response
     {
         $volunteer = $entityManager->getRepository(Volunteer::class)->find($id);

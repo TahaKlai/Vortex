@@ -1,0 +1,83 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Company Details{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">Company Details</h1>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="{{ path('update_company', {'id': company.getIdC()}) }}">
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-3 col-form-label">Name:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="name" name="Nom_c" value="{{ company.getNomC }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="address" class="col-sm-3 col-form-label">Address:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="address" name="Adresse" value="{{ company.getAdresse }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="phone" class="col-sm-3 col-form-label">Phone Number:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="phone" name="Num_tel" value="{{ company.getNumTel }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="email" class="col-sm-3 col-form-label">Email:</label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" id="email" name="mail" value="{{ company.getMail }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="website" class="col-sm-3 col-form-label">Website:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="website" name="Site_Web" value="{{ company.getSiteWeb }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="country" class="col-sm-3 col-form-label">Country:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="country" name="Pays_c" value="{{ company.getPaysC }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="description" class="col-sm-3 col-form-label">Description:</label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" id="description" name="Description_c" rows="5" required>{{ company.getDescriptionC }}</textarea>
+                                </div>
+                            </div>
+							<h2>Associated Volunteers for {{ company.getNomC() }}</h2>
+{% if volunteers is not empty %}
+    <ul>
+        {% for volunteer in volunteers %}
+            <li>{{ volunteer.getNomC() }} - {{ volunteer.getEmail() }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No volunteers associated with this company.</p>
+{% endif %}
+
+
+
+                            <div class="form-group row">
+                                <div class="col-sm-9 offset-sm-3">
+                                    <button type="submit" class="btn btn-primary">Update Details</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+{% endblock %}

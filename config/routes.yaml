@@ -5,54 +5,73 @@ controllers:
     resource: '../src/Controller/'
     type: annotation
 
+admin_home:
+    path: '/admin/'
+    controller: 'App\Controller\AdminController::index'
+    methods: ['GET']
+
+home:
+    path: '/'
+    controller: 'App\Controller\AdminController::home'
+    methods: ['GET']
+
 app_company_new:
-    path: '/company/new'
+    path: '/admin/company/new'
     controller: 'App\Controller\CompanyController::new'
     methods: ['GET', 'POST']
 
 company_show:
-    path: '/company/show'
+    path: '/admin/company/show'
     controller: 'App\Controller\CompanyController::showCompanies'
     methods: ['GET']
 
-company_show_one:
+home_company_show:
+    path: '/company/show'
+    controller: 'App\Controller\CompanyController::home_showCompanies'
+    methods: ['GET']
+home_company_show_one:
     path: '/company/{id}'
+    controller: 'App\Controller\CompanyController::home_showCompany'
+    methods: ['GET'] 
+    
+company_show_one:
+    path: '/admin/company/{id}'
     controller: 'App\Controller\CompanyController::showCompany'
     methods: ['GET']
 company_remove:
-    path: '/company/show/{id}/remove'
+    path: '/admin/company/show/{id}/remove'
     controller: 'App\Controller\CompanyController::removeCompany'
     methods: ['DELETE']
 
 
 update_company:
-    path: '/company/{id}'
+    path: '/admin/company/{id}'
     controller: 'App\Controller\CompanyController::updateCompany'
     methods: ['GET', 'POST']
 
 
 volunteer_new:
-    path: '/volunteer/new'
+    path: '/admin/volunteer/new'
     controller: 'App\Controller\VolunteerController::new'
     methods: ['GET', 'POST']
 
 volunteer_show:
-    path: '/volunteer/show'
+    path: '/admin/volunteer/show'
     controller: 'App\Controller\VolunteerController::showVolunteers'
     methods: ['GET']
 
 volunteer_show_one:
-    path: '/volunteer/{id}'
+    path: '/admin/volunteer/{id}'
     controller: 'App\Controller\VolunteerController::showVolunteer'
     methods: ['GET']
 
 delete_volunteer:
-    path: '/volunteer/remove/{id}'
+    path: '/admin/volunteer/remove/{id}'
     controller: 'App\Controller\VolunteerController::removeVolunteer'
     methods: ['DELETE']
 
 
 update_volunteer:
-    path: '/volunteer/{id}'
+    path: '/admin/volunteer/{id}'
     controller: 'App\Controller\VolunteerController::updateVolunteer'
     methods: ['GET', 'POST']
