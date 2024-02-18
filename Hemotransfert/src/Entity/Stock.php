@@ -21,6 +21,7 @@ class Stock
 
     #[ORM\Column]
     #[Assert\Positive]
+    #[Assert\LessThan(10)]
     private ?int $quantite = null;
 
     #[ORM\Column(length: 50)]
@@ -82,5 +83,9 @@ class Stock
         $this->origine = $origine;
 
         return $this;
+    }
+    public function __toString()
+    {
+        return $this->type;
     }
 }

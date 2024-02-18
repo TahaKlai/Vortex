@@ -42,7 +42,27 @@ class StockCotrollerController extends AbstractController
           'stock'=>$stock  
         ]);
     }
-    #[Route('/stock/nouveau','stock.new', methods:['GET','POST'])]
+
+
+    #[Route('/stock/view', name: 'stock.view',methods:['GET'])]
+    public function view(StockRepository $reposiory, PaginatorInterface $paginator, Request $request): Response
+    {
+        $stock = $paginator->paginate(
+            $reposiory->findAll(),
+            $request->query->getInt('page', 1),
+            3
+        );
+
+       // $stock =$reposiory->findAll();
+        return $this->render('stockfront.html.twig', [
+          'stock'=>$stock  
+        ]);
+    }
+
+
+
+
+    #[Route('/stock/nouveau',name:'stock.new', methods:['GET','POST'])]
     public function new(Request $request,EntityManagerInterface $manager):Response
     {
         $stock= new Stock();
@@ -65,7 +85,7 @@ return $this->redirectToRoute('app_stock_cotroller');
         
         return $this->render('pages/stock_cotroller/new.html.twig',['form'=>$form->createView()]);
     }
-    #[Route('/stock/edit/{id}','stock.edit', methods:['GET','POST'])]
+    #[Route('/stock/edit/{id}',name:'stock.edit', methods:['GET','POST'])]
     public function edit(StockRepository $reposiory, int $id,Request $request,EntityManagerInterface $manager): Response
     {
         $stock= $reposiory->findOneBy(["id"=>$id]);
@@ -94,7 +114,7 @@ return $this->render('pages/stock_cotroller/edit.html.twig',[
 ]
 );
     }
-    #[Route('/stock/delete/{id}','stock.delete', methods:['GET'])]
+    #[Route('/stock/delete/{id}',name:'stock.delete', methods:['GET'])]
     public function delete(EntityManagerInterface $manager, int $id):Response
     {
         $stock = $manager->getRepository(Stock::class)->find($id);
