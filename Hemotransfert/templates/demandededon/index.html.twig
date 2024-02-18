@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demandededon index{% endblock %}
+
+{% block body %}
+    <h1>Demandededon index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>ID_Demande</th>
+                <th>ID_Donateur</th>
+                <th>Datedemande</th>
+                <th>Typedon</th>
+                <th>Quantitedemande</th>
+                <th>Statusdemande</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for demandededon in demandededons %}
+            <tr>
+                <td>{{ demandededon.id }}</td>
+                <td>{{ demandededon.IDDemande }}</td>
+                <td>{{ demandededon.IDDonateur }}</td>
+                <td>{{ demandededon.datedemande ? demandededon.datedemande|date('Y-m-d') : '' }}</td>
+                <td>{{ demandededon.typedon }}</td>
+                <td>{{ demandededon.quantitedemande }}</td>
+                <td>{{ demandededon.statusdemande }}</td>
+                <td>
+                    <a href="{{ path('app_demandededon_show', {'id': demandededon.id}) }}">show</a>
+                    <a href="{{ path('app_demandededon_edit', {'id': demandededon.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_demandededon_new') }}">Create new</a>
+{% endblock %}

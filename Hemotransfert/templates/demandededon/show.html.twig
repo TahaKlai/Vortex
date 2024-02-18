@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demandededon{% endblock %}
+
+{% block body %}
+    <h1>Demandededon</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ demandededon.id }}</td>
+            </tr>
+            <tr>
+                <th>ID_Demande</th>
+                <td>{{ demandededon.IDDemande }}</td>
+            </tr>
+            <tr>
+                <th>ID_Donateur</th>
+                <td>{{ demandededon.IDDonateur }}</td>
+            </tr>
+            <tr>
+                <th>Datedemande</th>
+                <td>{{ demandededon.datedemande ? demandededon.datedemande|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Typedon</th>
+                <td>{{ demandededon.typedon }}</td>
+            </tr>
+            <tr>
+                <th>Quantitedemande</th>
+                <td>{{ demandededon.quantitedemande }}</td>
+            </tr>
+            <tr>
+                <th>Statusdemande</th>
+                <td>{{ demandededon.statusdemande }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_demandededon_index') }}">back to list</a>
+
+    <a href="{{ path('app_demandededon_edit', {'id': demandededon.id}) }}">edit</a>
+
+    {{ include('demandededon/_delete_form.html.twig') }}
+{% endblock %}

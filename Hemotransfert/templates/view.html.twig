@@ -1,0 +1,41 @@
+{% extends 'basefront.html.twig' %}
+
+{% block title %}Demandededon index{% endblock %}
+
+{% block body %}
+    <h1>Demandededon index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID_Demande</th>
+                <th>ID_Donateur</th>
+                <th>Datedemande</th>
+                <th>Typedon</th>
+                <th>Quantitedemande</th>
+                <th>Statusdemande</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for demandededon in demandededons %}
+            <tr>
+                <td>{{ demandededon.IDDemande }}</td>
+                <td>{{ demandededon.IDDonateur }}</td>
+                <td>{{ demandededon.datedemande ? demandededon.datedemande|date('Y-m-d') : '' }}</td>
+                <td>{{ demandededon.typedon }}</td>
+                <td>{{ demandededon.quantitedemande }}</td>
+                <td>{{ demandededon.statusdemande }}</td>
+                <td>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_demandededon_new') }}">Create new</a>
+{% endblock %}
