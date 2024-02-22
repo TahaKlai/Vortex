@@ -70,6 +70,10 @@ class VolunteerController extends AbstractController
     public function showVolunteer(int $id, Request $request): Response
 {
     $volunteer = $this->volunteerRepository->find($id);
+	
+$repository = $this->getDoctrine()->getRepository(Company::class);
+$available_Companies = $repository->findAll();
+$associated_Companies = $volunteer->getCompanies();
     if (!$volunteer) {
         throw $this->createNotFoundException('No volunteer found with id '.$id);
     }
@@ -89,6 +93,7 @@ class VolunteerController extends AbstractController
     return $this->render('admin/volunteer/show.html.twig', [
         'volunteer' => $volunteer,
         'form' => $form->createView(),
+		'available_Companies' => $available_Companies,
     ]);
 }
 

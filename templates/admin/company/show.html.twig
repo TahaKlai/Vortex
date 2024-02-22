@@ -54,16 +54,32 @@
                                     <textarea class="form-control" id="description" name="Description_c" rows="5" required>{{ company.getDescriptionC }}</textarea>
                                 </div>
                             </div>
-							<h2>Associated Volunteers for {{ company.getNomC() }}</h2>
-{% if volunteers is not empty %}
-    <ul>
-        {% for volunteer in volunteers %}
-            <li>{{ volunteer.getNomC() }} - {{ volunteer.getEmail() }}</li>
-        {% endfor %}
-    </ul>
+						<h2>Available Volunteers for {{ company.getNomC() }}</h2>
+{% if available_volunteers is not empty %}
+    <table class="volunteer-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for volunteer in available_volunteers %}
+                <tr>
+                    <td>{{ volunteer.getFullName() }}</td>
+                    <td>{{ volunteer.getEmailAddress() }}</td>
+                    <td>{{ volunteer.getPhoneNumber() }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% else %}
-    <p>No volunteers associated with this company.</p>
+    <p>No available volunteers.</p>
 {% endif %}
+
+
+
 
 
 

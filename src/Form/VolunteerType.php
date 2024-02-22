@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
+
 class VolunteerType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -80,13 +81,16 @@ class VolunteerType extends AbstractType
                 'label' => false, 
                 'required' => true,
             ])
-			   ;
+			;
+	
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Volunteer::class,
+			        
+
         ]);
     }
 }

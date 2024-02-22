@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use App\Entity\Volunteer;
 use App\Repository\CompanyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -43,14 +43,17 @@ private ?int $Num_tel;
         private ?string $mail;
     
         #[ORM\Column(length: 255)]
+		#[Assert\NotBlank(message:"le site web est requise.")]
         #[Assert\Url(message:"Veuillez saisir une URL valide pour le site web.")]
         private ?string $Site_Web;
     
         #[ORM\Column(length: 255)]
+		#[Assert\NotBlank(message:"Le pays est requise.")]
         #[Assert\Length(max: 255, maxMessage:"Le pays ne peut pas dépasser {{ limit }} caractères.")]
         private ?string $Pays_c;
     
         #[ORM\Column(length: 255)]
+      #[Assert\NotBlank(message:"La description de la compagnie est requise.")]
         #[Assert\Length(min: 10, maxMessage:"La description de la compagnie ne peut pas dépasser {{ limit }} caractères.")]
         private ?string $Description_c;
 
@@ -163,14 +166,21 @@ public function getVolunteers(): Collection
     return $this->volunteers ?? new ArrayCollection();
 }
 public function addVolunteer(Volunteer $volunteer): self
-{
-    if (!$this->volunteers->contains($volunteer)) {
-        $this->volunteers[] = $volunteer;
-        $volunteer->addCompany($this);
-    }
+    {
+     
+        if ($this->volunteers === null) {
+            $this->volunteers = new ArrayCollection();
+        }
 
-    return $this;
-}
+        
+        if (!$this->volunteers->contains($volunteer)) {
+            $this->volunteers[] = $volunteer;
+           
+            $volunteer->addCompany($this);
+        }
+
+        return $this;
+    }
 
 public function removeVolunteer(Volunteer $volunteer): self
 {

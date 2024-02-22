@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\Volunteer;
+
 
 use App\Repository\CompanyRepository;
 use App\Entity\Company;
@@ -83,20 +85,21 @@ public function new(Request $request): Response
     }
 
     #[Route('/admin/company/{id}', name: 'company_show_one')]
-    public function showCompany(int $id): Response
-    {
-        $company = $this->companyRepository->find($id);
-$volunteers = $company->getVolunteers();
+   public function showCompany(int $id): Response
+{
+    $company = $this->companyRepository->find($id);
 
-        if (!$company) {
-            throw $this->createNotFoundException('No company found with id '.$id);
-        }
-
-        return $this->render('admin/company/show.html.twig', [
-            'company' => $company,
-			'volunteers' => $volunteers,
-        ]);
+    if (!$company) {
+        throw $this->createNotFoundException('No company found with id '.$id);
     }
+    $available_volunteers = $this->getDoctrine()->getRepository(Volunteer::class)->findBy(['company_id' => $company]);
+    $associated_volunteers = $company->getVolunteers();
+
+    return $this->render('admin/company/show.html.twig', [
+        'company' => $company,
+        'available_volunteers' => $available_volunteers,
+    ]);
+}
 
     #[Route('/admin/company/show/{id}/remove', name: 'delete_company')]
     public function removeCompany($id): Response

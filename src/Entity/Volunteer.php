@@ -37,6 +37,7 @@ class Volunteer
     private $email_address;
 
     #[ORM\Column(type: "date")]
+
     #[Assert\NotBlank(message: "La date de naissance est requise.")]
     private $date_of_birth;
 
@@ -167,13 +168,20 @@ private $companies;
 	/**
  * @return Collection|int[]
  */
+/**
+ * @return Collection|Company[]
+ */
 public function getCompanies(): Collection
 {
-    $companyIds = [];
-    foreach ($this->companies as $company) {
-        $companyIds[] = $company->getIDC();
+    $companiesCollection = new ArrayCollection();
+
+    if ($this->companies !== null) {
+        foreach ($this->companies as $company) {
+            $companiesCollection->add($company);
+        }
     }
-    return $companyIds;
+
+    return $companiesCollection;
 }
 
     public function addCompany(Company $company): self
