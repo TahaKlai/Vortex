@@ -1,0 +1,46 @@
+ {% block body %}
+
+
+
+
+           <div class="welcome-text">
+                            <h1>Actualites index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Date</th>
+                <th>Priorite</th>
+
+   
+            </tr>
+        </thead>
+        <tbody>
+        {% for actualite in actualites %}
+            <tr>
+                <td>{{ actualite.id }}</td>
+                <td>{{ actualite.titre }}</td>
+                <td>{{ actualite.date ? actualite.date|date('Y-m-d') : '' }}</td>
+                <td>{{ actualite.priorite }}</td>
+
+                <td>
+
+                  
+            </tr>
+       
+            
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+
+
+
+
+    
+
+
+    {% endblock %}
