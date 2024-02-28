@@ -73,9 +73,9 @@
         ***********************************-->
         <div class="nav-header">
             <a href="{{asset('index.html')}}" class="brand-logo">
-                <img class="logo-abbr" src="./images/logo.png" alt="">
-                <img class="logo-compact" src="./images/logo-text.png" alt="">
-                <img class="brand-title" src="./images/logo-text.png" alt="">
+                <img class="logo-abbr" src="{{asset('./images/logo.png')}}" alt="">
+                <img class="logo-compact" src="{{asset('./images/logo-text.png')}}" alt="">
+                <img class="brand-title" src="{{asset('./images/logo-text.png')}}" alt="">
             </a>
 
             <div class="nav-control">
@@ -239,7 +239,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-validation">
-                                    <form class="form-valide" action="#" method="post">
+                                    <form class="form-valide" action="" method="post">
                                         <div class="row">
                                             <div class="col-xl-6">
                                                 <div class="form-group row">
@@ -256,7 +256,35 @@
                             <h1>Actualites index</h1>
 
 
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div >
+    <label for="search-input">Rechercher un titre :</label>
+    <input type="text" id="search" placeholder="Recherche par type...">
+</div>
+
+
+
+
+
 
     <table id="myTable" class="table">
         <thead>
@@ -271,7 +299,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for actualite in actualites %}
+        {% for actualite in pagination %}
             <tr>
                 <td>{{ actualite.id }}</td>
                 <td>{{ actualite.titre }}</td>
@@ -303,6 +331,7 @@
                     
                     </div>
 
+                    <span>
 
                    <div class="action-buttons">
                    <a href="{{ path('app_actualites_edit', {'id': actualite.id}) }}">edit</a>
@@ -317,97 +346,34 @@
         {% endfor %}
         </tbody>
     </table>
-<div class="action-buttons">
-    <a href="{{ path('app_actualites_new') }}">Create new</a>
-    </div> 
-    <div class="action-buttons">
+    <div class="action-buttons"> 
+<a href="{{ path('app_actualites_new') }}">Create new</a>
+
+<a href="{{ path('app_actualites_sort', {'sortField': 'titre'}) }}">Trier par Titre</a>
+    
     <a href="{{ path('app_actualites_listp') }}" download="list d'Actualites" >Generate PDF</a>
+    
+
+    <button class="btn"><a href="{{ path('app_actualites_stat') }}">Génerer statistiques</a></button>
+
+    
     </div> 
 
-    
-    
-<script>
-function myFunction() {
-  // Declare variables
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
 
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-}
-</script>
+    <div>
+.
+    </div>
+    <div class="action-buttons"> 
+    {{knp_pagination_render(pagination)}}
+    </div>
+
+    
+    
+
     
       </div> 
 
-<script>
-function sortTable(n) {
-  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-  table = document.getElementById("myTable");
-  switching = true;
-  // Set the sorting direction to ascending:
-  dir = "asc";
-  /* Make a loop that will continue until
-  no switching has been done: */
-  while (switching) {
-    // Start by saying: no switching is done:
-    switching = false;
-    rows = table.rows;
-    /* Loop through all table rows (except the
-    first, which contains table headers): */
-    for (i = 1; i < (rows.length - 1); i++) {
-      // Start by saying there should be no switching:
-      shouldSwitch = false;
-      /* Get the two elements you want to compare,
-      one from current row and one from the next: */
-      x = rows[i].getElementsByTagName("TD")[n];
-      y = rows[i + 1].getElementsByTagName("TD")[n];
-      /* Check if the two rows should switch place,
-      based on the direction, asc or desc: */
-      if (dir == "asc") {
-        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-          // If so, mark as a switch and break the loop:
-          shouldSwitch = true;
-          break;
-        }
-      } else if (dir == "desc") {
-        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-          // If so, mark as a switch and break the loop:
-          shouldSwitch = true;
-          break;
-        }
-      }
-    }
-    if (shouldSwitch) {
-      /* If a switch has been marked, make the switch
-      and mark that a switch has been done: */
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      switching = true;
-      // Each time a switch is done, increase this count by 1:
-      switchcount ++;
-    } else {
-      /* If no switching has been done AND the direction is "asc",
-      set the direction to "desc" and run the while loop again. */
-      if (switchcount == 0 && dir == "asc") {
-        dir = "desc";
-        switching = true;
-      }
-    }
-  }
-}
-</script>
+
 
       
 
@@ -428,7 +394,7 @@ function sortTable(n) {
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
-                                    <form class="form-valide-with-icon" action="#" method="post">
+                                    <form class="form-valide-with-icon" action="" method="post">
                                         <div class="form-group">
                                             <label class="text-label">Username</label>
                                             <div class="input-group">
@@ -477,7 +443,7 @@ function sortTable(n) {
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="{{asset('#')}}" target="_blank">Quixkit</a> 2019</p>
+                <p>Copyright © Designed &amp; Developed by <a href="" target="_blank">Quixkit</a> 2019</p>
             </div>
         </div>
         <!--**********************************
@@ -519,8 +485,8 @@ function sortTable(n) {
     <script src="{{asset('./vendor/jquery-validation/jquery.validate.min.js')}}"></script>
     <!-- Form validate init -->
     <script src="{{asset('./js/plugins-init/jquery.validate-init.js')}}"></script>
-    <script src="{{asset('')}}"><\script>
-    <script src="{{asset('pdf.js')}}"><\script>
+    
+   
 
 
 
