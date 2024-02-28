@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use DateTime;
 
 
 class VolunteerController extends AbstractController
@@ -32,23 +35,52 @@ class VolunteerController extends AbstractController
         $form = $this->createForm(VolunteerType::class, $volunteer);
         $form->handleRequest($request);
         $volunteers = $this->getDoctrine()->getRepository(Volunteer::class)->findAll();
-
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
             $phoneNumber = $form->get('phone_number')->getData();
             if (!is_numeric($phoneNumber)) {
                 $form->get('phone_number')->addError(new FormError('Le numéro de téléphone doit être un nombre positif.'));
                 return $this->render('admin/volunteer/new.html.twig', [
                     'form' => $form->createView(),
-					'volunteer' => $volunteer,
-					'volunteers' => $volunteers,
+                    'volunteer' => $volunteer,
+                    'volunteers' => $volunteers,
                 ]);
             }
     
-            $this->entityManager->persist($volunteer);
-            $this->entityManager->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($volunteer);
+            $entityManager->flush();
     
-            return $this->redirectToRoute('volunteer_show', ['id' => $volunteer->getIdV()]);
+        
+            $mail = new PHPMailer(true);
+    
+            try {
+            
+                $mail->SMTPDebug = false;   
+                $mail->isSMTP();            
+                $mail->Host = 'smtp.gmail.com';  
+                $mail->SMTPAuth = true;    
+                $mail->Username = 'mahjoubisamir060@gmail.com';   
+                $mail->Password = 'cjiu tjod kihl ebuu';   
+                $mail->SMTPSecure = 'tls';  
+                $mail->Port = 587;          
+    
+                
+                $mail->setFrom('mahjoubisamir060@gmail.com', 'Volunteer Registration Confirmation');
+                $mail->addAddress($volunteer->getEmailAddress());     
+    
+                $mail->isHTML(true);      
+                $mail->Subject = 'Volunteer Registration Confirmation';
+                $mail->Body = $this->renderView(
+                    'admin/volunteer/volunteer_registration_email.html.twig',
+                    ['volunteer' => $volunteer]
+                );
+    
+                $mail->send();
+                return $this->redirectToRoute('volunteer_show', ['id' => $volunteer->getIdV()]);
+            } catch (Exception $e) {
+                return $this->redirectToRoute('volunteer_show', ['id' => $volunteer->getIdV()]);
+            }
         }
     
         return $this->render('admin/volunteer/new.html.twig', [
@@ -57,18 +89,63 @@ class VolunteerController extends AbstractController
     }
     
     #[Route('/admin/volunteer/show', name: 'volunteer_show')]
-    public function showVolunteers(): Response
+    public function showVolunteers(Request $request): Response
     {
+        $sortBy = $request->query->get('sort_by');
+        $searchQuery = $request->query->get('search_query');
+    
+        // Fetch volunteers data from the repository
         $volunteers = $this->volunteerRepository->findAll();
-
+    
+        // Apply search filter if search query is provided
+        if ($searchQuery) {
+            $volunteers = array_filter($volunteers, function(Volunteer $volunteer) use ($searchQuery) {
+                return stripos($volunteer->getFullName(), $searchQuery) !== false;
+            });
+        }
+    
+        // Sorting logic based on the selected option
+        switch ($sortBy) {
+            case 'name_asc':
+                usort($volunteers, function($a, $b) { return strcmp($a->getFullName(), $b->getFullName()); });
+                break;
+            case 'name_desc':
+                usort($volunteers, function($a, $b) { return strcmp($b->getFullName(), $a->getFullName()); });
+                break;
+            case 'availability_asc':
+                usort($volunteers, function($a, $b) { return $a->getAvailability() - $b->getAvailability(); });
+                break;
+            case 'availability_desc':
+                usort($volunteers, function($a, $b) { return $b->getAvailability() - $a->getAvailability(); });
+                break;
+            case 'email_asc':
+                usort($volunteers, function($a, $b) { return strcmp($a->getEmailAddress(), $b->getEmailAddress()); });
+                break;
+            case 'email_desc':
+                usort($volunteers, function($a, $b) { return strcmp($b->getEmailAddress(), $a->getEmailAddress()); });
+                break;
+            case 'birthdate_asc':
+                usort($volunteers, function($a, $b) {
+                    return strtotime($a->getDateOfBirth()->format('Y-m-d')) - strtotime($b->getDateOfBirth()->format('Y-m-d'));
+                });
+                break;
+            case 'birthdate_desc':
+                usort($volunteers, function($a, $b) {
+                    return strtotime($b->getDateOfBirth()->format('Y-m-d')) - strtotime($a->getDateOfBirth()->format('Y-m-d'));
+                });
+                break;
+            default:
+                // No sorting or default sorting logic
+                break;
+        }
+    
         return $this->render('admin/volunteer/list.html.twig', [
             'volunteers' => $volunteers,
         ]);
     }
-
-   #[Route('/admin/volunteer/{id}', name: 'volunteer_show_one')]
+    #[Route('/admin/volunteer/{id}', name: 'volunteer_show_one', requirements: ['id' => '\d+'])]
     public function showVolunteer(int $id, Request $request): Response
-{
+    {
     $volunteer = $this->volunteerRepository->find($id);
 	
 $repository = $this->getDoctrine()->getRepository(Company::class);
@@ -144,4 +221,83 @@ $associated_Companies = $volunteer->getCompanies();
 
         return $this->redirectToRoute('volunteer_show', ['id' => $id]);
     }
+
+    #[Route('/admin/volunteer/volunteer_Statistics', name: 'volunteer_Statistics')]
+    public function volunteer_Statistics(VolunteerRepository $volunteerRepository): Response
+    {
+        // Retrieve all volunteers from the repository
+        $volunteers = $volunteerRepository->findAll();
+        
+        // Check if there are any volunteers
+        if (empty($volunteers)) {
+            // Handle the case where there are no volunteers
+            return $this->render('admin/volunteer/stat.html.twig', [
+                'total_volunteers' => 0,
+                'dataPointsAvailability' => json_encode([]), // Pass an empty array as JSON string for availability
+                'dataPointsAge' => json_encode([]), // Pass an empty array as JSON string for age
+            ]);
+        }
+    
+        // Initialize variables to count volunteers in different availability and age ranges
+        $availableCount = 0;
+        $unavailableCount = 0;
+        $ageUnder18Count = 0; // New variable to count volunteers under 18
+        $age18To50Count = 0;
+        $over60Count = 0;
+    
+        // Get current date for calculating age
+        $currentDate = new DateTime();
+    
+        // Iterate through volunteers to calculate age and count in each availability and age range
+        foreach ($volunteers as $volunteer) {
+            // Count availability
+            if ($volunteer->getAvailability() != 0) {
+                $availableCount++;
+            } else {
+                $unavailableCount++;
+            }
+            
+            // Calculate age
+            $dateOfBirth = $volunteer->getDateOfBirth();
+            if ($dateOfBirth instanceof DateTime) {
+                $age = $currentDate->diff($dateOfBirth)->y; // Calculate age
+                
+                // Count age range
+                if ($age < 18) { // Volunteers under 18
+                    $ageUnder18Count++;
+                } elseif ($age >= 18 && $age <= 50) {
+                    $age18To50Count++;
+                } elseif ($age > 60) {
+                    $over60Count++;
+                }
+            }
+        }
+    
+        // Prepare data for the graph (availability)
+        $dataPointsAvailability = [
+            ['label' => 'Available', 'y' => $availableCount],
+            ['label' => 'Unavailable', 'y' => $unavailableCount]
+        ];
+    
+        // Prepare data for the graph (age)
+        $dataPointsAge = [
+            ['label' => 'Age < 18', 'y' => $ageUnder18Count], // New age group
+            ['label' => 'Age 18-50', 'y' => $age18To50Count],
+            ['label' => 'Age 60+', 'y' => $over60Count]
+        ];
+    
+        // Total number of volunteers
+        $totalVolunteers = count($volunteers);
+    
+        return $this->render('admin/volunteer/stat.html.twig', [
+            'total_volunteers' => $totalVolunteers,
+            'dataPointsAvailability' => json_encode($dataPointsAvailability), // Pass dataPoints for availability as a JSON string
+            'dataPointsAge' => json_encode($dataPointsAge) // Pass dataPoints for age as a JSON string
+        ]);
+    }
+    
+    
+
+
+
 }

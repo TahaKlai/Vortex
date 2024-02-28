@@ -14,6 +14,14 @@ home:
     path: '/'
     controller: 'App\Controller\AdminController::home'
     methods: ['GET']
+company_statistics:
+    path: '/admin/company/statistics'
+    controller: 'App\Controller\CompanyController::company_statistics'
+    methods: ['GET']
+volunteer_Statistics:
+    path: '/admin/volunteer/volunteer_Statistics'
+    controller: 'App\Controller\VolunteerController::volunteer_Statistics'
+    methods: ['GET']
 
 app_company_new:
     path: '/admin/company/new'
@@ -29,6 +37,8 @@ home_company_show:
     path: '/company/show'
     controller: 'App\Controller\CompanyController::home_showCompanies'
     methods: ['GET']
+
+
 home_company_show_one:
     path: '/company/{id}'
     controller: 'App\Controller\CompanyController::home_showCompany'

@@ -1,0 +1,23 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+    <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+    <script>
+        window.onload = function() {
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+                title: {
+                    text: "Companies by Country"
+                },
+                data: [{
+                    type: "pie",
+                    yValueFormatString: "#,##0.00\"%\"",
+                    indexLabel: "{label} ({y})",
+                    dataPoints: {{ dataPoints | raw }}
+                }]
+            });
+            chart.render();
+        }
+    </script>
+{% endblock %}

@@ -1,8 +1,26 @@
 {% extends 'home/base.html.twig' %}
 
-{% block title %}{% endblock %}
+
 
 {% block body %}
+    <style>
+        .corps {
+            display: flex;
+        }
+
+        .formulaire {
+            margin-left: auto;
+            margin-right: 25px;
+        }
+
+        .code_qr {
+            font-size: 15px;
+            margin-right: auto;
+            width: 250px;
+            max-width: 250px;
+        }
+    </style>
+
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -17,45 +35,14 @@
                                 <p>{{ company.getNomC }}</p>
                             </div>
                         </div>
+                        <!-- Add other company details similarly -->
                         <div class="form-group row">
-                            <label for="address" class="col-sm-3 col-form-label">Address:</label>
+                            <label for="qrcode" class="col-sm-3 col-form-label">QR Code:</label>
                             <div class="col-sm-9">
-                                <p>{{ company.getAdresse }}</p>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="phone" class="col-sm-3 col-form-label">Phone Number:</label>
-                            <div class="col-sm-9">
-                                <p>{{ company.getNumTel }}</p>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="email" class="col-sm-3 col-form-label">Email:</label>
-                            <div class="col-sm-9">
-                                <p>{{ company.getMail }}</p>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="website" class="col-sm-3 col-form-label">Website:</label>
-                            <div class="col-sm-9">
-                                <p>{{ company.getSiteWeb }}</p>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="country" class="col-sm-3 col-form-label">Country:</label>
-                            <div class="col-sm-9">
-                                <p>{{ company.getPaysC }}</p>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="description" class="col-sm-3 col-form-label">Description:</label>
-                            <div class="col-sm-9">
-                                <p>{{ company.getDescriptionC }}</p>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-9 offset-sm-3">
-                                <a href="{{ path('home_company_show', {'id': company.getIdC()}) }}" class="btn btn-primary">Show all Companies</a>
+                                <!-- QR code will be generated dynamically -->
+                                <div class="code_qr">
+                                    <img class="qrious">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -63,4 +50,28 @@
             </div>
         </div>
     </div>
+
+    <!-- Include QRious library -->
+    <script src="{{ asset('home/js/qrious.js') }}"></script>
+
+    <script>
+        var qr = new QRious({
+            element: document.querySelector('.qrious'),
+            size: 250,
+            value: ''
+        });
+
+        function updateQR() {
+            var companyDetails = "Company Details: " +
+                "Name: {{ company.getNomC }} - Address: {{ company.getAdresse }} - Phone Number: {{ company.getNumTel }}" +
+                "- Email: {{ company.getMail }} - Website: {{ company.getSiteWeb }} - Country: {{ company.getPaysC }}" +
+                "- Description: {{ company.getDescriptionC }}";
+            qr.value = companyDetails;
+            document.getElementById('message_valeur').innerText = companyDetails;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            updateQR();
+        });
+    </script>
 {% endblock %}

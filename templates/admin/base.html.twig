@@ -9,14 +9,13 @@
     {% endblock %}
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('admin/images/favicon.png') }}">
-	{% block css%}
+    {% block css %}
     <link rel="stylesheet" href="{{ asset('admin/vendor/owl-carousel/css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/vendor/owl-carousel/css/owl.theme.default.min.css') }}">
     <link href="{{ asset('admin/vendor/jqvmap/css/jqvmap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/css/style.css') }}" rel="stylesheet">
-	{% endblock %}
+    {% endblock %}
 </head>
-
 
 <body>
     <!--*******************
@@ -41,13 +40,9 @@
             Nav header start
         ***********************************-->
         <div class="nav-header">
-    <a href="#" class="brand-logo">
-        <img class="logo-abbr" src="{{ asset('admin/images/logo.png') }}" alt="" style="width: 100px; height: auto;">
-    </a>
-</div>
-
-
-
+            <a href="#" class="brand-logo">
+                <img class="logo-abbr" src="{{ asset('admin/images/logo.png') }}" alt="" style="width: 100px; height: auto;">
+            </a>
             <div class="nav-control">
                 <div class="hamburger">
                     <span class="line"></span><span class="line"></span><span class="line"></span>
@@ -133,17 +128,19 @@
                         <ul aria-expanded="false">
                             <li><a href="{{ path('company_new') }}">Add Company</a></li>
                             <li><a href="{{ path('company_show') }}">Show All Companies</a></li>
+							<li><a href="{{ path('company_statistics') }}">Statistique Companies</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon icon-single-04"></i><span class="nav-text">Volunteers</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="{{ path('volunteer_new') }}">Add Volunteer</a></li>
-                            <li><a href="{{ path('volunteer_show') }}">Show All Volunteers</a></li>
-                        </ul>
-                    </li>
+                   <li>
+    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+        <i class="icon icon-single-04"></i><span class="nav-text">Volunteers</span>
+    </a>
+    <ul aria-expanded="false">
+        <li><a href="{{ path('volunteer_new') }}">Add Volunteer</a></li>
+        <li><a href="{{ path('volunteer_show') }}">Show All Volunteers</a></li>
+        <li><a href="{{ path('volunteer_Statistics') }}">Statistics</a></li>
+    </ul>
+</li>
                 </ul>
             </div>
         </div>
@@ -154,9 +151,11 @@
         <!--**********************************
             Content body start
         ***********************************-->
-        {% block body %}
+        <div class="content-body">
+            {% block body %}
 
-        {% endblock %}
+            {% endblock %}
+        </div>
         <!--**********************************
             Content body end
         ***********************************-->
@@ -181,10 +180,11 @@
         Scripts
     ***********************************-->
     <!-- Required vendors -->
-	{% block js %}
+    {% block js %}
     <script src="{{ asset('admin/vendor/global/global.min.js') }}"></script>
     <script src="{{ asset('admin/js/quixnav-init.js') }}"></script>
     <script src="{{ asset('admin/js/custom.min.js') }}"></script>
+	
     <!-- Vectormap -->
     <script src="{{ asset('admin/vendor/raphael/raphael.min.js') }}"></script>
     <script src="{{ asset('admin/vendor/morris/morris.min.js') }}"></script>
@@ -201,6 +201,6 @@
     <script src="{{ asset('admin/vendor/jqvmap/js/jquery.vmap.usa.js') }}"></script>
     <script src="{{ asset('admin/vendor/jquery.counterup/jquery.counterup.min.js') }}"></script>
     <script src="{{ asset('admin/js/dashboard/dashboard-1.js') }}"></script>
-	{% endblock %}
+    {% endblock %}
 </body>
 </html>

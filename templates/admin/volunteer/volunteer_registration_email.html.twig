@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirmation d'inscription en tant que volontaire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        strong {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Merci de vous être inscrit en tant que volontaire !</h1>
+        <p>Voici votre détails :</p>
+        <ul>
+            <li><strong>Nom :</strong> {{ volunteer.getFullName() }}</li>
+            <li><strong>Adresse :</strong> {{ volunteer.getVolunteerAddress() }}</li>
+            <li><strong>Numéro de téléphone :</strong> {{ volunteer.getPhoneNumber() }}</li>
+            <li><strong>Adresse e-mail :</strong> {{ volunteer.getEmailAddress() }}</li>
+            <li><strong>Date de naissance :</strong> {{ volunteer.getDateOfBirth()|date('Y-m-d') }}</li>
+            <li><strong>Profession :</strong> {{ volunteer.getOccupation() }}</li>
+            <li><strong>Compétences :</strong> {{ volunteer.getSkills() }}</li>
+            <li><strong>Disponibilité :</strong> {% if volunteer.getAvailability() == 1 %}Disponible{% else %}Non disponible{% endif %}</li>
+        </ul>
+        <p>Si vous trouvez des erreurs dans vos informations, vous pouvez contacter l'administrateur.</p>
+    </div>
+</body>
+</html>
