@@ -1,0 +1,32 @@
+{% extends 'basefront.html.twig' %}
+
+{% block title %}Rapport{% endblock %}
+
+{% block body %}
+    <h1>Rapport</h1>
+
+    <p>Nombre total de demande de don: {{ rapport.total_demandededon }}</p>
+
+    <h2>Dons par date</h2>
+    <ul>
+    {% for date, count in rapport.dons_par_date %}
+        <li>{{ date }}: {{ count }}</li>
+    {% endfor %}
+    </ul>
+
+    <h2>Répartition par type de don</h2>
+    <ul>
+    {% for type, count in rapport.repartition_type_don %}
+        <li>{{ type }}: {{ count }}</li>
+    {% endfor %}
+    </ul>
+
+    <p>Quantité totale demandée: {{ rapport.quantite_demande }}</p>
+
+    <h2>Status de demande</h2>
+    <ul>
+    {% for status, count in rapport.status_demande %}
+        <li>{{ status }}: {{ count }}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}

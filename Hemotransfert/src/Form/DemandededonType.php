@@ -15,7 +15,7 @@ class DemandededonType extends AbstractType
             ->add('ID_Demande')
             ->add('ID_Donateur')
             ->add('datedemande')
-            ->add('typedon')
+            ->add('typededon')
             ->add('quantitedemande')
             ->add('statusdemande')
         ;

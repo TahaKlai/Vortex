@@ -72,7 +72,9 @@
           </a>
           <!-- Dropdown list -->
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item @@career" href="{{ path('demandededon.view') }}"">Gestion De Dons</a></li>
+            <li><a class="dropdown-item @@career" href="{{ path('demandededon.view') }}"">Listes Des Demandes</a></li>
+            <li><a class="dropdown-item @@career" href="{{ path('reservation.view') }}"">Listes Des Reservations</a></li>
+
            
 
             <li class="dropdown dropdown-submenu dropleft">
@@ -97,11 +99,21 @@
   </div>
 </nav>
 
-
-      
+{% if app.user %}
+<!-- Display notifications -->
+{% for notification in app.user.notifications %}
+    <div class="alert alert-info" role="alert">
+        {{ notification.message }}
+    </div>
+{% endfor %}
+{% endif %}
+</div>
 {% block body %}
+{% endblock %}
+      
+
      
-        {% endblock %}
+       
 
 
 <footer>

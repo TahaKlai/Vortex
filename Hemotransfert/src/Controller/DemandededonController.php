@@ -21,7 +21,6 @@ class DemandededonController extends AbstractController
             'demandededons' => $demandededonRepository->findAll(),
         ]);
     }
-
     #[Route('/view', name: 'demandededon.view', methods: ['GET'])]
     public function view(DemandededonRepository $demandededonRepository): Response
     {
@@ -29,6 +28,7 @@ class DemandededonController extends AbstractController
             'demandededons' => $demandededonRepository->findAll(),
         ]);
     }
+
 
 
     #[Route('/new', name: 'app_demandededon_new', methods: ['GET', 'POST'])]

@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'basefront.html.twig' %}
 
 {% block title %}Reservation{% endblock %}
 
@@ -36,12 +36,12 @@
                 <td>{{ reservation.statusreservation }}</td>
             </tr>
             <tr>
-                <th>Cas</th>
-                <td>{{ reservation.cas }}</td>
-            </tr>
-            <tr>
                 <th>Commentaire</th>
                 <td>{{ reservation.commentaire }}</td>
+            </tr>
+            <tr>
+                <th>Cas</th>
+                <td>{{ reservation.cas }}</td>
             </tr>
         </tbody>
     </table>

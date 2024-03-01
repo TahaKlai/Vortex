@@ -49,7 +49,7 @@ class DemandededonControllerTest extends WebTestCase
             'demandededon[ID_Demande]' => 'Testing',
             'demandededon[ID_Donateur]' => 'Testing',
             'demandededon[datedemande]' => 'Testing',
-            'demandededon[typedon]' => 'Testing',
+            'demandededon[typededon]' => 'Testing',
             'demandededon[quantitedemande]' => 'Testing',
             'demandededon[statusdemande]' => 'Testing',
         ]);
@@ -66,7 +66,7 @@ class DemandededonControllerTest extends WebTestCase
         $fixture->setID_Demande('My Title');
         $fixture->setID_Donateur('My Title');
         $fixture->setDatedemande('My Title');
-        $fixture->setTypedon('My Title');
+        $fixture->setTypededon('My Title');
         $fixture->setQuantitedemande('My Title');
         $fixture->setStatusdemande('My Title');
 
@@ -88,7 +88,7 @@ class DemandededonControllerTest extends WebTestCase
         $fixture->setID_Demande('My Title');
         $fixture->setID_Donateur('My Title');
         $fixture->setDatedemande('My Title');
-        $fixture->setTypedon('My Title');
+        $fixture->setTypededon('My Title');
         $fixture->setQuantitedemande('My Title');
         $fixture->setStatusdemande('My Title');
 
@@ -101,7 +101,7 @@ class DemandededonControllerTest extends WebTestCase
             'demandededon[ID_Demande]' => 'Something New',
             'demandededon[ID_Donateur]' => 'Something New',
             'demandededon[datedemande]' => 'Something New',
-            'demandededon[typedon]' => 'Something New',
+            'demandededon[typededon]' => 'Something New',
             'demandededon[quantitedemande]' => 'Something New',
             'demandededon[statusdemande]' => 'Something New',
         ]);
@@ -113,7 +113,7 @@ class DemandededonControllerTest extends WebTestCase
         self::assertSame('Something New', $fixture[0]->getID_Demande());
         self::assertSame('Something New', $fixture[0]->getID_Donateur());
         self::assertSame('Something New', $fixture[0]->getDatedemande());
-        self::assertSame('Something New', $fixture[0]->getTypedon());
+        self::assertSame('Something New', $fixture[0]->getTypededon());
         self::assertSame('Something New', $fixture[0]->getQuantitedemande());
         self::assertSame('Something New', $fixture[0]->getStatusdemande());
     }
@@ -128,7 +128,7 @@ class DemandededonControllerTest extends WebTestCase
         $fixture->setID_Demande('My Title');
         $fixture->setID_Donateur('My Title');
         $fixture->setDatedemande('My Title');
-        $fixture->setTypedon('My Title');
+        $fixture->setTypededon('My Title');
         $fixture->setQuantitedemande('My Title');
         $fixture->setStatusdemande('My Title');
 

@@ -14,43 +14,42 @@ class Reservation
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private $id = null;
 
     #[ORM\Column]
-    private ?int $ID_Reservation = null;
+    private $ID_Reservation = null;
 
     #[ORM\Column]
-    private ?int $ID_Demande = null;
+    private $ID_Demande = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $datereservation = null;
+    private $datereservation = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $heurereservation = null;
+    private $heurereservation = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $quantitereserve = null;
+    private $quantitereserve = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $statusreservation = null;
+    private $statusreservation = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $cas = null;
+    private $commentaire = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $commentaire = null;
+    #[ORM\Column(length: 10)]
+    private $cas = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
-
     public function getIDReservation(): ?int
     {
         return $this->ID_Reservation;
     }
 
-    public function setIDReservation(int $ID_Reservation): static
+    public function setIDReservation(int $ID_Reservation)
     {
         $this->ID_Reservation = $ID_Reservation;
 
@@ -62,7 +61,7 @@ class Reservation
         return $this->ID_Demande;
     }
 
-    public function setIDDemande(int $ID_Demande): static
+    public function setIDDemande(int $ID_Demande)
     {
         $this->ID_Demande = $ID_Demande;
 
@@ -74,7 +73,7 @@ class Reservation
         return $this->datereservation;
     }
 
-    public function setDatereservation(\DateTimeInterface $datereservation): static
+    public function setDatereservation(\DateTimeInterface $datereservation)
     {
         $this->datereservation = $datereservation;
 
@@ -86,7 +85,7 @@ class Reservation
         return $this->heurereservation;
     }
 
-    public function setHeurereservation(\DateTimeInterface $heurereservation): static
+    public function setHeurereservation(\DateTimeInterface $heurereservation)
     {
         $this->heurereservation = $heurereservation;
 
@@ -98,7 +97,7 @@ class Reservation
         return $this->quantitereserve;
     }
 
-    public function setQuantitereserve(string $quantitereserve): static
+    public function setQuantitereserve(string $quantitereserve)
     {
         $this->quantitereserve = $quantitereserve;
 
@@ -110,21 +109,9 @@ class Reservation
         return $this->statusreservation;
     }
 
-    public function setStatusreservation(string $statusreservation): static
+    public function setStatusreservation(string $statusreservation)
     {
         $this->statusreservation = $statusreservation;
-
-        return $this;
-    }
-
-    public function getCas(): ?string
-    {
-        return $this->cas;
-    }
-
-    public function setCas(string $cas): static
-    {
-        $this->cas = $cas;
 
         return $this;
     }
@@ -134,9 +121,21 @@ class Reservation
         return $this->commentaire;
     }
 
-    public function setCommentaire(?string $commentaire): static
+    public function setCommentaire(string $commentaire)
     {
         $this->commentaire = $commentaire;
+
+        return $this;
+    }
+
+    public function getCas(): ?string
+    {
+        return $this->cas;
+    }
+
+    public function setCas(string $cas)
+    {
+        $this->cas = $cas;
 
         return $this;
     }

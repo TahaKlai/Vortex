@@ -13,53 +13,47 @@ class Demandededon
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(type: 'integer')]
+    private $ID_Demande = null;
+    
+    #[ORM\Column(type: 'integer')]
+    private $ID_Donateur = null;
 
-    #[ORM\Column]
-    private ?int $ID_Demande = null;
+    #[ORM\Column(type: 'datetime')]
+    private $datedemande = null;
 
-    #[ORM\Column]
-    private ?int $ID_Donateur = null;
+    #[ORM\Column(type: 'string')]
+    private $typededon = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $datedemande = null;
+    #[ORM\Column(type: 'integer')]
+    private $quantitedemande = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $typedon = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $quantitedemande = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $statusdemande = null;
-
+    #[ORM\Column(type: 'string')]
+    private $statusdemande = null;
+    
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->ID_Demande;
     }
+   
 
     public function getIDDemande(): ?int
     {
         return $this->ID_Demande;
     }
 
-    public function setIDDemande(int $ID_Demande): static
+    public function setIDDemande(int $ID_Demande)
     {
         $this->ID_Demande = $ID_Demande;
-
-        return $this;
+        return $this; // You can still return $this without specifying return type
     }
-
     public function getIDDonateur(): ?int
     {
         return $this->ID_Donateur;
     }
-
-    public function setIDDonateur(int $ID_Donateur): static
+    public function setIDDonateur(int $ID_Donateur)
     {
         $this->ID_Donateur = $ID_Donateur;
-
         return $this;
     }
 
@@ -68,46 +62,38 @@ class Demandededon
         return $this->datedemande;
     }
 
-    public function setDatedemande(\DateTimeInterface $datedemande): static
+    public function setDatedemande(\DateTimeInterface $datedemande)
     {
         $this->datedemande = $datedemande;
-
         return $this;
     }
-
-    public function getTypedon(): ?string
+    public function getTypededon(): ?string
     {
-        return $this->typedon;
+        return $this->typededon;
     }
-
-    public function setTypedon(string $typedon): static
+    public function setTypededon(string $typededon)
     {
-        $this->typedon = $typedon;
-
+        $this->typededon = $typededon;
         return $this;
     }
-
     public function getQuantitedemande(): ?string
     {
         return $this->quantitedemande;
     }
 
-    public function setQuantitedemande(string $quantitedemande): static
+    public function setQuantitedemande(string $quantitedemande)
     {
         $this->quantitedemande = $quantitedemande;
-
         return $this;
     }
-
     public function getStatusdemande(): ?string
     {
         return $this->statusdemande;
     }
-
-    public function setStatusdemande(string $statusdemande): static
+    public function setStatusdemande(string $statusdemande)
     {
         $this->statusdemande = $statusdemande;
-
         return $this;
     }
 }
+

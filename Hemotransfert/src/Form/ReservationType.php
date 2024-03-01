@@ -18,8 +18,8 @@ class ReservationType extends AbstractType
             ->add('heurereservation')
             ->add('quantitereserve')
             ->add('statusreservation')
-            ->add('cas')
             ->add('commentaire')
+            ->add('cas')
         ;
     }
 

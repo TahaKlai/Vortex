@@ -52,8 +52,8 @@ class ReservationControllerTest extends WebTestCase
             'reservation[heurereservation]' => 'Testing',
             'reservation[quantitereserve]' => 'Testing',
             'reservation[statusreservation]' => 'Testing',
-            'reservation[cas]' => 'Testing',
             'reservation[commentaire]' => 'Testing',
+            'reservation[cas]' => 'Testing',
         ]);
 
         self::assertResponseRedirects('/reservation/');
@@ -71,8 +71,8 @@ class ReservationControllerTest extends WebTestCase
         $fixture->setHeurereservation('My Title');
         $fixture->setQuantitereserve('My Title');
         $fixture->setStatusreservation('My Title');
-        $fixture->setCas('My Title');
         $fixture->setCommentaire('My Title');
+        $fixture->setCas('My Title');
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -95,8 +95,8 @@ class ReservationControllerTest extends WebTestCase
         $fixture->setHeurereservation('My Title');
         $fixture->setQuantitereserve('My Title');
         $fixture->setStatusreservation('My Title');
-        $fixture->setCas('My Title');
         $fixture->setCommentaire('My Title');
+        $fixture->setCas('My Title');
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -110,8 +110,8 @@ class ReservationControllerTest extends WebTestCase
             'reservation[heurereservation]' => 'Something New',
             'reservation[quantitereserve]' => 'Something New',
             'reservation[statusreservation]' => 'Something New',
-            'reservation[cas]' => 'Something New',
             'reservation[commentaire]' => 'Something New',
+            'reservation[cas]' => 'Something New',
         ]);
 
         self::assertResponseRedirects('/reservation/');
@@ -124,8 +124,8 @@ class ReservationControllerTest extends WebTestCase
         self::assertSame('Something New', $fixture[0]->getHeurereservation());
         self::assertSame('Something New', $fixture[0]->getQuantitereserve());
         self::assertSame('Something New', $fixture[0]->getStatusreservation());
-        self::assertSame('Something New', $fixture[0]->getCas());
         self::assertSame('Something New', $fixture[0]->getCommentaire());
+        self::assertSame('Something New', $fixture[0]->getCas());
     }
 
     public function testRemove(): void
@@ -141,8 +141,8 @@ class ReservationControllerTest extends WebTestCase
         $fixture->setHeurereservation('My Title');
         $fixture->setQuantitereserve('My Title');
         $fixture->setStatusreservation('My Title');
-        $fixture->setCas('My Title');
         $fixture->setCommentaire('My Title');
+        $fixture->setCas('My Title');
 
         $this->manager->persist($fixture);
         $this->manager->flush();

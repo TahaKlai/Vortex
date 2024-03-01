@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Reservation;
 use App\Form\ReservationType;
 use App\Repository\ReservationRepository;
+use App\Service\SmsGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,8 +23,17 @@ class ReservationController extends AbstractController
         ]);
     }
 
+    #[Route('/viewr', name: 'reservation.view', methods: ['GET'])]
+    public function viewr(ReservationRepository $reservationRepository): Response
+    {
+        return $this->render('viewr.html.twig', [
+            'reservations' => $reservationRepository->findAll(),
+        ]);
+    }
+
+
     #[Route('/new', name: 'app_reservation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, SmsGenerator $smsGenerator): Response
     {
         $reservation = new Reservation();
         $form = $this->createForm(ReservationType::class, $reservation);
@@ -32,6 +42,12 @@ class ReservationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($reservation);
             $entityManager->flush();
+
+                        // Send SMS after saving the reservation
+                        $number_test = $_ENV['twilio_to_number']; // Verified number by Twilio. Only one number allowed for the test version.
+                        $name = "Reservation System";
+                        $text = "Reservation enregistrée avec succès";
+                        $smsGenerator->sendSms($number_test, $name, $text);
 
             return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -78,4 +94,6 @@ class ReservationController extends AbstractController
 
         return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    
 }
