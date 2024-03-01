@@ -4523,3 +4523,7 @@ h6.h1 {
     display: inline-block !important;
   }
 }
+.chart-container {
+  margin-top: 50px; /* Ajustez cette valeur en fonction de la hauteur de votre navbar */
+  /* Ajoutez d'autres règles de style si nécessaire */
+}

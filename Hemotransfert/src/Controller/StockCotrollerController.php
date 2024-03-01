@@ -137,4 +137,69 @@ $this->addFlash(
     );
 return $this->redirectToRoute('app_stock_cotroller');
     }
+    #[Route('/stock/sort/{sortField}', name: 'app_stock_sort', methods: ['GET'])]
+public function sort(StockRepository $repository, PaginatorInterface $paginator, Request $request, string $sortField): Response
+{
+    $stock = $paginator->paginate(
+        $repository->findBy([], [$sortField => 'ASC']),
+        $request->query->getInt('page', 1),
+        3
+    );
+
+    return $this->render('pages/stock_cotroller/index.html.twig', [
+        'stock' => $stock,
+    ]);
+}
+#[Route('/stock/search', name: 'app_stock_search', methods: ['GET'])]
+public function search(StockRepository $repository, PaginatorInterface $paginator, Request $request): Response
+{
+    $keyword = $request->query->get('keyword');
+    $category = $request->query->get('category');
+    $stock = $paginator->paginate(
+        $repository->search($keyword, $category),
+        $request->query->getInt('page', 1),
+        3
+    );
+
+    return $this->render('pages/stock_cotroller/index.html.twig', [
+        'stock' => $stock,
+    ]);
+}
+
+
+
+#[Route('/stock/statistics', name: 'stock_statistics')]
+public function stock_statistics(StockRepository $stockRepository): Response
+{
+    $stocks = $stockRepository->findAll();
+
+    if (empty($stocks)) {
+        return $this->render('pages/stock_cotroller/stat.html.twig');
+    }
+
+    $stocksByType = [];
+    foreach ($stocks as $stock) {
+        $type = $stock->getType();
+        if (!isset($stocksByType[$type])) {
+            $stocksByType[$type] = 1;
+        } else {
+            $stocksByType[$type]++;
+        }
+    }
+
+    $dataPoints1 = [];
+    $dataPoints2 = [];
+    foreach ($stocksByType as $type => $count) {
+        $dataPoints1[] = ['label' => $type, 'y' => $count];
+        // Calculer les données pour la deuxième méthode de statistiques
+        $dataPoints2[] = ['label' => $type, 'y' => $count * 2];
+    }
+
+    return $this->render('pages/stock_cotroller/stat.html.twig', [
+        'dataPoints1' => json_encode($dataPoints1, JSON_NUMERIC_CHECK),
+        'dataPoints2' => json_encode($dataPoints2, JSON_NUMERIC_CHECK),
+        // ... d'autres variables nécessaires à votre modèle
+    ]);
+}
+
 }

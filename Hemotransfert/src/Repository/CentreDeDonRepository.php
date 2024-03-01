@@ -21,6 +21,30 @@ class CentreDeDonRepository extends ServiceEntityRepository
         parent::__construct($registry, CentreDeDon::class);
     }
 
+
+
+    public function search(?string $keyword, ?string $category)
+
+    {
+
+        $queryBuilder = $this->createQueryBuilder('c');
+    
+        if ($keyword !== null) {
+            if ($category === 'nom') {
+                $queryBuilder->andWhere('c.nom LIKE :keyword')
+                    ->setParameter('keyword', '%' . $keyword . '%');
+            } elseif ($category === 'adresse') {
+                $queryBuilder->andWhere('c.adresse LIKE :keyword')
+                    ->setParameter('keyword', '%' . $keyword . '%');
+            } elseif ($category === 'coordonnegeo') {
+                $queryBuilder->andWhere('c.coordonnegeo LIKE :keyword')
+                    ->setParameter('keyword', '%' . $keyword . '%');
+            } 
+        }
+    
+        return $queryBuilder->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return CentreDeDon[] Returns an array of CentreDeDon objects
 //     */

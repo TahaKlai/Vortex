@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use App\Entity\LogModification;
 use App\Entity\CentreDeDon;
 use App\Form\CentreType;
 use App\Repository\CentreDeDonRepository;
@@ -45,7 +45,15 @@ class CentreController extends AbstractController
         ]);
     }
 
-
+    #[Route('/modifications', name: 'modifications')]
+    public function modifications(EntityManagerInterface $manager): Response
+    {
+        $modifications = $manager->getRepository(LogModification::class)->findAll();
+    
+        return $this->render('pages/centre/modifications.html.twig', [
+            'modifications' => $modifications
+        ]);
+    }
     #[Route('/centre/creation', name: 'centre.new' ,methods:['GET','POST'])]
 public function new(Request $request,EntityManagerInterface $manager):Response
 {
@@ -57,7 +65,17 @@ if($form->isSubmitted() && $form->isValid()){
 
     $centre=$form->getData();
     $manager->persist($centre);
+  
+
+    $logModification = new LogModification();
+    $logModification->setAction('ajout');
+    $logModification->setCentre($centre);
+    $logModification->setDate(new \DateTime());
+
+    $manager->persist($logModification);
     $manager->flush();
+
+
     $this->addFlash(
         'success',
         'votre centre a ete ajouté!'
@@ -84,7 +102,21 @@ public function edit(CentreDeDonRepository  $reposiory, int $id,Request $request
     if($form->isSubmitted() && $form->isValid()){
 $centre=$form->getData();
 $manager->persist($centre);
-$manager->flush();
+
+
+
+            // Enregistrer la modification dans LogModification
+            $logModification = new LogModification();
+            $logModification->setAction('modification');
+            $logModification->setCentre($centre);
+            $logModification->setDate(new \DateTime());
+
+            $manager->persist($logModification);
+            $manager->flush();
+
+
+
+
 $this->addFlash(
 'success',
 'votre centre a ete modifié!'
@@ -116,13 +148,57 @@ public function delete(EntityManagerInterface $manager, int $id):Response
 
     }
 $manager->remove($centre);
-$manager->flush();
+
+
+  // Enregistrer la modification dans LogModification
+  $logModification = new LogModification();
+  $logModification->setAction('suppression');
+  $logModification->setCentre($centre);
+  $logModification->setDate(new \DateTime());
+
+  $manager->persist($logModification);
+  $manager->flush();
+
+
+
 $this->addFlash(
 'success',
 'votre centre a ete supprimé!'
 );
 return $this->redirectToRoute('centre.index');
 }
+
+#[Route('/centre/sort/{sortField}', name: 'centre.sort', methods:['GET'])]
+public function sort(CentreDeDonRepository $repository, PaginatorInterface $paginator, Request $request, string $sortField): Response
+{
+    $centres = $paginator->paginate(
+        $repository->findBy([], [$sortField => 'ASC']),
+        $request->query->getInt('page', 1),
+        3
+    );
+
+    return $this->render('pages/centre/index.html.twig', [
+        'centres' => $centres,
+    ]);
+}
+#[Route('/centre/search', name: 'centre.search', methods:['GET'])]
+public function search(CentreDeDonRepository $repository, PaginatorInterface $paginator, Request $request): Response
+{
+    $keyword = $request->query->get('keyword');
+    $category = $request->query->get('category');
+    $centres = $paginator->paginate(
+        $repository->search($keyword ,$category),  
+        $request->query->getInt('page', 1),
+        3
+    );
+
+    return $this->render('pages/centre/index.html.twig', [
+        'centres' => $centres,
+    ]);
+}
+
+
+
 
 
 

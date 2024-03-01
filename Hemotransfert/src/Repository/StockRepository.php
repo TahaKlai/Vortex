@@ -20,7 +20,28 @@ class StockRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Stock::class);
     }
-
+    public function search(?string $keyword, ?string $category)
+    {
+        $queryBuilder = $this->createQueryBuilder('s');
+    
+        if ($keyword !== null) {
+            if ($category === 'origine') {
+                $queryBuilder->andWhere('s.origine LIKE :keyword')
+                    ->setParameter('keyword', '%' . $keyword . '%');
+            } elseif ($category === 'type') {
+                $queryBuilder->andWhere('s.type LIKE :keyword')
+                    ->setParameter('keyword', '%' . $keyword . '%');
+            } elseif ($category === 'etat') {
+                $queryBuilder->andWhere('s.etat LIKE :keyword')
+                    ->setParameter('keyword', '%' . $keyword . '%');
+            } elseif ($category === 'quantite') {
+                $queryBuilder->andWhere('s.quantite LIKE :keyword')
+                    ->setParameter('keyword', '%' . $keyword . '%');
+            }
+        }
+    
+        return $queryBuilder->getQuery()->getResult();
+    }
 //    /**
 //     * @return Stock[] Returns an array of Stock objects
 //     */

@@ -1,37 +1,62 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Centres de don{% endblock %}
+{% block title %}Centres de don w{% endblock %}
 
 {% block body %}
  
  <div class="container mt-4">
  <h1> Centres de don <h1>
+ <p><a class="btn btn-primary btn-lg" href="{{path('home.index')}}" role="button">home</a></p>
 
-  <a href="{{path('centre.new')}}" class="btn btn-primary">
-  
- creer un centre
-</a>
- <a class="btn btn-primary btn-lg" href="{{path('home.index')}}" role="button">home</a>
+
+
   {% for message in app.flashes('success') %}
       <div class="alert alert-success mt-4">
         {{ message }}
       </div>
     {% endfor %}
 
+ <h4> Trier les Centres de don par nom<h4>
+   <p><a class="btn btn-primary" href="{{ path('centre.sort', {'sortField': 'nom'}) }}">Trier par Nom</a>  </p>
+
+
+
+
+ <h4> Chercher les Centres de don par catégorie<h4>
+<form action="{{ path('centre.search') }}" method="get" class="form-inline">
+  <div class="form-group">
+    <input type="text" name="keyword" value="{{ app.request.get('keyword') }}" class="form-control mr-2" placeholder="Recherche">
+  </div>
+
+  <div class="form-group">
+    <select name="category" class="form-control mr-2">
+      <option value="">Sélectionner une catégorie</option>
+      <option value="nom">nom</option>
+      <option value="adresse">adresse</option>
+      <option value="coordonnegeo">coordonnegeo</option>
+    </select>
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Rechercher</button>
+</form>
+ <h4> Tableau des Centres de don <h4>
+    <p><a href="{{path('centre.new')}}" class="btn btn-primary">
+  creer un centre
+   </a></p>
  <div class="count mt-4">
   <h4>
    <small> Il y a {{ centres.getTotalItemCount }} centres de don</small>
    </h4>
 </div>
-
  <table class="table table-hover mt-4">
-  <thead>
+  <thead class="thead-dark">
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Nom</th>
       <th scope="col">Adresse</th>
       <th scope="col">Coordonnées</th>
       <th scope="col">Contact</th>
+    
       <th scope="col">Edition</th>
       <th scope="col">Suppression</th>
     </tr>
@@ -44,6 +69,7 @@
       <td>{{ centre.adresse }}</td>
       <td>{{ centre.coordonnegeo }}</td>
       <td>{{ centre.contact }}</td>
+    
       <td>
         <a href="{{path('centre.edit',{id:centre.id})}}" class="btn.btn-info">Modifier</a>
       </td>
@@ -55,13 +81,39 @@
   </tbody>
 </table>
 
-<div class="navigation d-flex justify-content-center">
-    {{ knp_pagination_render(centres) }}
-</div>
 
 
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        {% if centres.currentPageNumber > 1 %}
+            <li class="page-item">
+                <a class="page-link" href="{{ path('centre.index', {'page': centres.currentPageNumber - 1}) }}" aria-label="Previous">
+                    <span aria-hidden="true">Previous</span>
+                </a>
+            </li>
+        {% endif %}
 
+        {% for page in range(1, centres.pageCount) %}
+            <li class="page-item{% if centres.currentPageNumber == page %} active{% endif %}">
+                <a class="page-link" href="{{ path('centre.index', {'page': page}) }}">{{ page }}</a>
+            </li>
+        {% endfor %}
 
+        {% if centres.currentPageNumber < centres.pageCount %}
+            <li class="page-item">
+                <a class="page-link" href="{{ path('centre.index', {'page': centres.currentPageNumber + 1}) }}" aria-label="Next">
+                    <span aria-hidden="true">Next</span>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+
+ <h4> Acceder a l historique des modifications<h4>
+ <a href="{{path('modifications')}}" class="btn btn-primary"> historique de modifications</a>
  </div>
- 
+
+
+
+
 {% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center">Historique de Modifications</h1>
+
+        <div class="table-responsive">
+            <table class="table table-hover mt-4">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Type de modification</th>
+                        <th>Nom du Centre</th>
+                        <th>Date de modification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for modification in modifications %}
+                        <tr>
+                            <td>{{ modification.action }}</td>
+                            <td>{{ modification.centre.nom }}</td>
+                            <td>{{ modification.date|date('Y-m-d H:i:s') }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+         <a href="{{path('centre.index')}}" class="btn btn-primary"> Retour</a>
+    </div>
+{% endblock %}
