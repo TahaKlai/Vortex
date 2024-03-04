@@ -1,0 +1,160 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Company Details{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">Company Details</h1>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="{{ path('update_company', {'id': company.getIdC()}) }}">
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-3 col-form-label">Name:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="name" name="Nom_c" value="{{ company.getNomC }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="address" class="col-sm-3 col-form-label">Address:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="address" name="Adresse" value="{{ company.getAdresse }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="phone" class="col-sm-3 col-form-label">Phone Number:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="phone" name="Num_tel" value="{{ company.getNumTel }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="email" class="col-sm-3 col-form-label">Email:</label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" id="email" name="mail" value="{{ company.getMail }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="website" class="col-sm-3 col-form-label">Website:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="website" name="Site_Web" value="{{ company.getSiteWeb }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="country" class="col-sm-3 col-form-label">Country:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="country" name="Pays_c" value="{{ company.getPaysC }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="description" class="col-sm-3 col-form-label">Description:</label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" id="description" name="Description_c" rows="5" required>{{ company.getDescriptionC }}</textarea>
+                                </div>
+                            </div>
+						
+
+
+
+
+
+
+                            <div class="form-group row">
+                                <div class="col-sm-9 offset-sm-3">
+                                    <button type="submit" class="btn btn-primary">Update Details</button>
+<button class="btn btn-primary" onclick="generatePDF()">Generate PDF</button>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+    <script>
+        function generatePDF() {
+            // Fetch the PDF template
+            fetch("{{ path('company_pdf', {'id': company.getIdC()}) }}")
+                .then(response => response.text())
+                .then(data => {
+                    // Generate PDF from the fetched template
+                    html2pdf().from(data).save();
+                });
+        }
+    </script>
+     <style>
+        .corps {
+            display: flex;
+        }
+
+        .formulaire {
+            margin-left: auto;
+            margin-right: 25px;
+        }
+
+        .code_qr {
+            font-size: 15px;
+            margin-right: auto;
+            width: 250px;
+            max-width: 250px;
+        }
+    </style>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">QR Code :</h1>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="name" class="col-sm-3 col-form-label">Name:</label>
+                            <div class="col-sm-9">
+                                <p>{{ company.getNomC }}</p>
+                            </div>
+                        </div>
+                        <!-- Add other company details similarly -->
+                        <div class="form-group row">
+                            <label for="qrcode" class="col-sm-3 col-form-label">QR Code:</label>
+                            <div class="col-sm-9">
+                                <!-- QR code will be generated dynamically -->
+                                <div class="code_qr">
+                                    <img class="qrious">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include QRious library -->
+    <script src="{{ asset('home/js/qrious.js') }}"></script>
+
+    <script>
+        var qr = new QRious({
+            element: document.querySelector('.qrious'),
+            size: 250,
+            value: ''
+        });
+
+        function updateQR() {
+            var companyDetails = "Company Details: " +
+                "Name: {{ company.getNomC }} - Address: {{ company.getAdresse }} - Phone Number: {{ company.getNumTel }}" +
+                "- Email: {{ company.getMail }} - Website: {{ company.getSiteWeb }} - Country: {{ company.getPaysC }}" +
+                "- Description: {{ company.getDescriptionC }}";
+            qr.value = companyDetails;
+            document.getElementById('message_valeur').innerText = companyDetails;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            updateQR();
+        });
+    </script>
+{% endblock %}

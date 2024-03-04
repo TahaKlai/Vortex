@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des livreurs{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="my-4">Liste Livreur</h1>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form method="get" action="{{ path('app_admin_livreur_list') }}" class="mb-3">
+                <div class="input-group">
+                    <select class="custom-select" id="sort_by" name="sort_by">
+                        <option value="name_asc">Nom (Croissant)</option>
+                        <option value="name_desc">Nom (Décroissant)</option>
+                        <option value="email_asc">Adresse e-mail (Croissant)</option>
+                        <option value="email_desc">Adresse e-mail (Décroissant)</option>
+                       
+                    </select>
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Trier</button>
+                    </div>
+                </div>
+            </form>
+
+            <form method="get" action="{{ path('app_admin_livreur_list') }}">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="search_query" name="search_query" placeholder="Rechercher par nom">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Rechercher</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="table-responsive mt-4">
+        <table class="table table-striped table-hover">
+
+            <thead>
+            
+               
+            </thead>
+            <tbody>
+                
+
+
+
+            <thead class="thead-dark">
+                <tr>
+                    <th>N°</th>
+                    <th>cin</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>                                   
+                    <th>Numero</th>
+                    <th>Email</th>
+                    <th>Statut</th>
+                    <th>Zone de livraisons</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if livreurs is defined and livreurs | length > 0 %}
+                {% for row in livreurs%}
+                <tr>
+                    <td>{{row.id}}</td>
+                    <td>{{row.cin}}</td>
+                    <td>{{row.nom}}</td>
+                    <td>{{row.prenom}}</td>
+                    <td>{{row.tel}}</td>
+                    <td>{{ row.email }}</td>
+
+                    <td>{{row.statutL}}</td>
+                    <td>{{row.zoneLiv}}</td>
+                    
+                    <td>
+                        <a href="{{path('app_livreurs_modifier',{'id': row.id})}}" class="btn btn-primary submit-fn mt-2" type="submit">Modifier</a>
+                        <a href="{{path('app_Livreur_supprimer',{'id': row.id})}}" class="btn btn-primary submit-fn mt-2" type="submit">Supprimer</a>
+                    </td>
+             
+                </tr>
+           {% endfor%}
+           {% endif%}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'admin/base.html.twig' %}
+{%block head%}
+<head>
+
+    <meta charset='UTF-8'>
+<block title>Users list</block>
+
+</head>
+{% endblock %}
+{% block body %}
+    <h1>Users list</h1>
+
+{% block content %}
+    <!-- Your content here -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th> groupe sanguin </th>
+                <th> type </th>
+                <th> numero de telephone </th>
+                <th> adresse </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.lastName }}</td>
+                    <td>{{ user.email}}</td>
+                    <td>{{ user.groupeSanguin }}</td>
+                    <td>{{ user.type }}</td>
+                    <td>{{ user.telephone }}</td>
+                    <td>{{ user.adresse }}</td>
+                    <td>
+                        <a href="{{ path('app_delete', {'id': user.id}) }}">delete</a>
+                        <a href="{{ path('app_edit', {'id': user.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+{% endblock %}
+
+</body>
+
+{% endblock %}

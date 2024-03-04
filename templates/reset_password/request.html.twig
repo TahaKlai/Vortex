@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+{%block head %}
+
+  <!-- Basic Page Needs
+  ================================================== -->
+  <meta charset="utf-8">
+  <title>login</title>
+
+  <!-- Mobile Specific Metas
+  ================================================== -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Bootstrap App Landing Template">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="author" content="Themefisher">
+  <meta name="generator" content="Themefisher Small Apps Template v1.0">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
+  
+  <!-- PLUGINS CSS STYLE -->
+  <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="plugins/themify-icons/themify-icons.css">
+  <link rel="stylesheet" href="plugins/slick/slick.css">
+  <link rel="stylesheet" href="plugins/slick/slick-theme.css">
+  <link rel="stylesheet" href="plugins/fancybox/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="plugins/aos/aos.css">
+
+  <!-- CUSTOM CSS -->
+  <link href="cssfront/style.css" rel="stylesheet">
+  {%endblock%}
+  </head>
+{% block body %}
+<form method="post">
+<body class="body-wrapper" data-spy="scroll" data-target=".privacy-nav">
+<section class="user-login section">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="block">
+					<!-- Image -->
+					<div class="image align-self-center"><img class="img-fluid" src="imagesfront/Login/front-desk-sign-in.jpg"
+							alt="desk-image"></div>
+					<!-- Content -->
+					<div class="content text-center">
+						<div class="logo">
+							<a href="index.html"><img src="" alt=""></a>
+						</div>
+						{% for flash_error in app.flashes('reset_password_error') %}
+                            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+                         {% endfor %}
+                             <h1>Reset your password</h1>
+
+                             {{ form_start(requestForm) }}
+                            {{ form_row(requestForm.email) }}
+                     <div>
+                            <small>
+                             Enter your email address, and we will send you a
+                             link to reset your password.
+                            </small>
+                     </div>
+                        <button class="btn btn-primary">Send password reset email</button>
+                    {{ form_end(requestForm) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+</form>
+{% endblock %}
+</body>
+
+  
+  {% block javascripts %}
+  <!-- JAVASCRIPTS -->
+  <script src="plugins/jquery/jquery.min.js"></script>
+  <script src="plugins/bootstrap/bootstrap.min.js"></script>
+  <script src="plugins/slick/slick.min.js"></script>
+  <script src="plugins/fancybox/jquery.fancybox.min.js"></script>
+  <script src="plugins/syotimer/jquery.syotimer.min.js"></script>
+  <script src="plugins/aos/aos.js"></script>
+ 
+  
+  <script src="js/script.js"></script>
+    {% endblock %}
+
+
+</html>

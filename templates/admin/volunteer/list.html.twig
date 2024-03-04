@@ -1,0 +1,82 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Liste des volontaires{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="my-4">Liste des volontaires</h1>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form method="get" action="{{ path('volunteer_show') }}" class="mb-3">
+                <div class="input-group">
+                    <select class="custom-select" id="sort_by" name="sort_by">
+                        <option value="name_asc">Nom (Croissant)</option>
+                        <option value="name_desc">Nom (Décroissant)</option>
+                        <option value="email_asc">Adresse e-mail (Croissant)</option>
+                        <option value="email_desc">Adresse e-mail (Décroissant)</option>
+                        <option value="birthdate_asc">Date de naissance (Croissant)</option>
+                        <option value="birthdate_desc">Date de naissance (Décroissant)</option>
+                    </select>
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Trier</button>
+                    </div>
+                </div>
+            </form>
+
+            <form method="get" action="{{ path('volunteer_show') }}">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="search_query" name="search_query" placeholder="Rechercher par nom">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Rechercher</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="table-responsive mt-4">
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nom complet</th>
+                    <th>Adresse</th>
+                    <th>Numéro de téléphone</th>
+                    <th>Adresse e-mail</th>
+                    <th>Date de naissance</th>
+                    <th>Profession</th>
+                    <th>Compétences</th>
+                    <th>Disponibilité</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for volunteer in volunteers %}
+                <tr>
+                    <td>{{ volunteer.getIdV() }}</td>
+                    <td>{{ volunteer.getFullName() }}</td>
+                    <td>{{ volunteer.getVolunteerAddress() }}</td>
+                    <td>{{ volunteer.getPhoneNumber() }}</td>
+                    <td>{{ volunteer.getEmailAddress() }}</td>
+                    <td>{{ volunteer.getDateOfBirth()|date('Y-m-d') }}</td>
+                    <td>{{ volunteer.getOccupation() }}</td>
+                    <td>{{ volunteer.getSkills() }}</td>
+                    <td>
+                        {% if volunteer.getAvailability() == 1 %}
+                        disponible
+                        {% else %}
+                        non disponible
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('volunteer_show_one', {'id': volunteer.getIdV()}) }}" class="btn btn-primary">Détails</a>
+                        <a href="{{ path('remove_volunteer', {'id': volunteer.getIdV()}) }}" class="btn btn-danger">Supprimer</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

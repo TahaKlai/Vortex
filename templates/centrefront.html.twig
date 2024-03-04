@@ -1,0 +1,53 @@
+{% extends 'basefront.html.twig' %}
+
+{% block title %}Centres de don{% endblock %}
+
+{% block body %}
+ 
+ <div class="container mt-4">
+ <h1> Centres de don <h1>
+
+ 
+ <a class="btn btn-primary btn-lg" href="{{path('home.index')}}" role="button">home</a>
+ 
+ <div class="count mt-4">
+  <h4>
+   <small> Il y a {{ centres.getTotalItemCount }} centres de don</small>
+   </h4>
+</div>
+
+ <table class="table table-hover mt-4">
+  <thead>
+    <tr>
+
+      <th scope="col">Nom</th>
+      <th scope="col">Adresse</th>
+      <th scope="col">Coordonnées</th>
+      <th scope="col">Contact</th>
+
+    </tr>
+  </thead>
+  <tbody>
+   {% for centre in centres %}
+    <tr class="table-primary">
+      
+      <td>{{ centre.nom }}</td>
+      <td>{{ centre.adresse }}</td>
+      <td>{{ centre.coordonnegeo }}</td>
+      <td>{{ centre.contact }}</td>
+      
+    </tr>
+   {% endfor %}
+  </tbody>
+</table>
+
+<div class="navigation d-flex justify-content-center">
+    {{ knp_pagination_render(centres) }}
+</div>
+
+
+
+
+ </div>
+ 
+{% endblock %}

@@ -1,0 +1,165 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Front{% endblock %}
+
+{% block body %}
+
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+ 
+  
+</head>
+
+
+
+
+
+<body>
+<!-- partial:index.partial.html -->
+<!-- /*********************************************************
+ * 👻 Gebher Nuggets
+ * 📝 Read Docs: gebher.com/blog/
+ * 📒 File#: _0_blood-donor
+ * 🦖 Title:  Blood Donor (HTML & CSS)
+ * 
+ * 🗂️ Usage: https://www.gebher.com/license.php
+ * 💡 Descr: Small application to select the type of blood 
+ *    with illustration on the compatibility of the recipients.
+ * 
+ * 🪪 Idea Source: https://codepen.io/RominaMartin/pen/OJVdvRm
+ * 
+ * ❤️ Support our team that offers quality products and services. Our project offers you 
+ *    access to exclusive initiatives in exchange for your contribution. 
+ *    Join us today and make a difference! https://gebher.com/quick/?link=JoinNuggets
+ * 
+ * ⛔ Do not remove these attribution details and include them in your project or website.
+ *    Remember to mention the author and source when using this code to contribute new features. 
+*********************************************************/ -->
+
+<!-- We're using a Pro Web Font Kit to load Font Awesome Version (6 Latest). Get your own Kit at fontawesome.com/kits -->
+<script src="https://kit.fontawesome.com/a24879a822.js" crossorigin="anonymous"></script>
+
+<div id="about">
+  <div class="mySocial"><a class="social" href="{{asset('https://www.stiac.it/?rel=oNPrOeW')}}" target="_new" style="color: #FD1D1D;"><i class="fa-solid fa-heart"></i></a>
+</div>
+
+<div id="content">
+  <h3>Select the donor blood type:</h3>
+  <div id="blood_selector">
+    <div>O−</div>
+    <div>O+</div>
+    <div>A−</div>
+    <div>A+</div>
+    <div>B−</div>
+    <div>B+</div>
+    <div>AB−</div>
+    <div>AB+</div>
+  </div>
+  <div id="blood_content">
+    <div class="bar"></div>
+    <div class="main_bag">
+      <div class="blood"></div>
+    </div>
+  </div>
+  <div id="center_via_c">
+    <div class="center_via">
+      <div class="blood_via"></div>
+    </div>
+  </div>
+  <div id="humans">
+    <div class="human left">
+      <div class="scribble"><span class="blood_type">O−</span>
+        <div class="head"></div>
+        <div class="body"></div>
+      </div>
+      <div class="via"></div>
+      <div class="blood_via"></div>
+    </div>
+    <div class="human right">
+      <div class="scribble"><span class="blood_type">O+</span>
+        <div class="head"></div>
+        <div class="body"></div>
+      </div>
+      <div class="via"></div>
+      <div class="blood_via"></div>
+    </div>
+    <div class="human left">
+      <div class="scribble"><span class="blood_type">A−</span>
+        <div class="head"></div>
+        <div class="body"></div>
+      </div>
+      <div class="via"></div>
+      <div class="blood_via"></div>
+    </div>
+    <div class="human right">
+      <div class="scribble"><span class="blood_type">A+</span>
+        <div class="head"></div>
+        <div class="body"></div>
+      </div>
+      <div class="via"></div>
+      <div class="blood_via"></div>
+    </div>
+    <div class="human left">
+      <div class="scribble"><span class="blood_type">B−</span>
+        <div class="head"></div>
+        <div class="body"></div>
+      </div>
+      <div class="via"></div>
+      <div class="blood_via"></div>
+    </div>
+    <div class="human right">
+      <div class="scribble"><span class="blood_type">B+</span>
+        <div class="head"></div>
+        <div class="body"></div>
+      </div>
+      <div class="via"></div>
+      <div class="blood_via"></div>
+    </div>
+    <div class="human left">
+      <div class="scribble"><span class="blood_type">AB−</span>
+        <div class="head"></div>
+        <div class="body"></div>
+      </div>
+      <div class="via"></div>
+      <div class="blood_via"></div>
+    </div>
+    <div class="human right">
+      <div class="scribble"><span class="blood_type">AB+</span>
+        <div class="head"></div>
+        <div class="body"></div>
+      </div>
+      <div class="via"></div>
+      <div class="blood_via"></div>
+    </div>
+  </div>
+</div>
+<!-- partial -->
+
+
+</body>
+
+
+
+
+{% block css%}
+
+<a class="social" href="{{asset('https://www.gebher.com/?rel=oNPrOeW')}}" target="_new" style="color:#65676b;"><i class="fa-solid fa-link"></i></a>
+<a class="social" href="{{asset('https://www.instagram.com/stiac.global/')}}" target="_new" style="color:#e1306c;"><i class="fa-brands fa-instagram"></i></a>
+<a class="social" href="{{asset('https://www.facebook.com/stiac.global/')}}" target="_new" style="color:#1B74E4;"><i class="fa-brands fa-square-facebook"></i></a>
+<a class="social" href="{{asset('https://dribbble.com/Stiac')}}" target="_new" style="color:#ea4c89;"><i class="fa-brands fa-dribbble"></i></a></div>
+
+<link rel='stylesheet' href='{{asset('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&amp;display=swap')}}'><link rel="stylesheet" href=".test/style.css">
+
+{% endblock %}
+
+
+
+
+{% block js %}
+  <script  src="{{asset('./script.js')}}"></script>
+{% endblock %}
+
+{% endblock %}

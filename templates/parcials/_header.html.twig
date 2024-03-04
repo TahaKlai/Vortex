@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand text-white" href="{{ path('home.index') }}">Hemotransfert</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link active text-white" href="{{ path('app_stock_cotroller') }}">Liste des stocks</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{{ path('stock.new') }}">Stock</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link text-white" href="{{ path('centre.index') }}">Centres de don</a>
+        </li>
+        <!-- Add similar adjustments for other navigation items -->
+        <!-- ... -->
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-sm-2" type="search" placeholder="Search">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>

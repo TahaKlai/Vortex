@@ -1,0 +1,77 @@
+{% extends 'admin/home/base.html.twig' %}
+
+
+
+{% block body %}
+    <style>
+        .corps {
+            display: flex;
+        }
+
+        .formulaire {
+            margin-left: auto;
+            margin-right: 25px;
+        }
+
+        .code_qr {
+            font-size: 15px;
+            margin-right: auto;
+            width: 250px;
+            max-width: 250px;
+        }
+    </style>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">Company Details</h1>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="name" class="col-sm-3 col-form-label">Name:</label>
+                            <div class="col-sm-9">
+                                <p>{{ company.getNomC }}</p>
+                            </div>
+                        </div>
+                        <!-- Add other company details similarly -->
+                        <div class="form-group row">
+                            <label for="qrcode" class="col-sm-3 col-form-label">QR Code:</label>
+                            <div class="col-sm-9">
+                                <!-- QR code will be generated dynamically -->
+                                <div class="code_qr">
+                                    <img class="qrious">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include QRious library -->
+    <script src="{{ asset('home/js/qrious.js') }}"></script>
+
+    <script>
+        var qr = new QRious({
+            element: document.querySelector('.qrious'),
+            size: 250,
+            value: ''
+        });
+
+        function updateQR() {
+            var companyDetails = "Company Details: " +
+                "Name: {{ company.getNomC }} - Address: {{ company.getAdresse }} - Phone Number: {{ company.getNumTel }}" +
+                "- Email: {{ company.getMail }} - Website: {{ company.getSiteWeb }} - Country: {{ company.getPaysC }}" +
+                "- Description: {{ company.getDescriptionC }}";
+            qr.value = companyDetails;
+            document.getElementById('message_valeur').innerText = companyDetails;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            updateQR();
+        });
+    </script>
+{% endblock %}

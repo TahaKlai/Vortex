@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+{% block title %}Statistique de type de sang{% endblock %}
+{% block body %}
+   <div class="container">
+        <div class="jumbotron text-center">
+            <h1>Statistique de type de sang</h1>
+            <hr class="my-4">
+            <p>   
+                <a href="{{ path('app_stock_cotroller') }}" class="btn btn-primary">Stock</a>
+            </p>
+        </div>
+    </div>
+
+
+
+
+
+<div class="chart-container" style="width: 300px; height: 150px; margin: auto; text-align: center;">
+    <canvas id="myChart1" width="300" height="150"></canvas>
+</div>
+
+<div class="chart-container" style="width: 300px; height: 150px; margin: auto; text-align: center;">
+    <canvas id="myChart2" width="300" height="150"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx1 = document.getElementById('myChart1').getContext('2d');
+    var ctx2 = document.getElementById('myChart2').getContext('2d');
+    var data1 = {{ dataPoints1|raw }};
+    var data2 = {{ dataPoints2|raw }};
+
+    var myChart1 = new Chart(ctx1, {
+        type: 'bar',
+        data: {
+            labels: data1.map(item => item.label),
+            datasets: [{
+                label: 'Stocks par type de sang ',
+                data: data1.map(item => item.y),
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    var myChart2 = new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+            labels: data2.map(item => item.label),
+            datasets: [{
+                label: 'Stocks par type de sang ',
+                data: data2.map(item => item.y),
+                backgroundColor: [
+                    'rgba(192, 75, 192, 0.2)',
+                    'rgba(192, 192, 75, 0.2)',
+                    'rgba(75, 192, 75, 0.2)',
+                    // Ajoutez plus de couleurs si nécessaire
+                ],
+                borderColor: [
+                    'rgba(192, 75, 192, 1)',
+                    'rgba(192, 192, 75, 1)',
+                    'rgba(75, 192, 75, 1)',
+                    // Ajoutez plus de couleurs si nécessaire
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            cutout: '70%', // Ajustez la taille du cercle intérieur
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        boxWidth: 10,
+                        padding: 10
+                    }
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

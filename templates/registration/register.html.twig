@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+{%block head%}
+
+  <!-- Basic Page Needs
+  ================================================== -->
+  <meta charset="utf-8">
+  <title>sign up</title>
+
+  <!-- Mobile Specific Metas
+  ================================================== -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Bootstrap App Landing Template">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="author" content="Themefisher">
+  <meta name="generator" content="Themefisher Small Apps Template v1.0">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="hemo.png" />
+  
+  <!-- PLUGINS CSS STYLE -->
+  <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="plugins/themify-icons/themify-icons.css">
+  <link rel="stylesheet" href="plugins/slick/slick.css">
+  <link rel="stylesheet" href="plugins/slick/slick-theme.css">
+  <link rel="stylesheet" href="plugins/fancybox/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="plugins/aos/aos.css">
+
+  <!-- CUSTOM CSS -->
+  <link href="cssfront/style.css" rel="stylesheet">
+{%endblock%}
+</head>
+
+<body class="body-wrapper" data-spy="scroll" data-target=".privacy-nav">
+{%block body%}
+
+
+<section class="user-login section">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="block">
+					<!-- Image -->
+					<div class="image align-self-center"><img class="img-fluid" src="Front/images/Login/sign-up.jpg" alt="desk-image">
+					</div>
+					<!-- Content -->
+					<div class="content text-center">
+						<div class="logo">
+							<a href="index.html"><img src="" alt=""></a>
+						</div>
+						<div class="title-text">
+							<h3>Sign Up for New Account</h3>
+						</div>
+							              {{ form_errors(registrationForm) }}
+                            {{ form_start(registrationForm) }}
+                            <table>
+                            <tr>
+                            <td>{{form_label(registrationForm.name, 'nom')}} </td>
+                            <td>{{form_widget(registrationForm.name)}} </td>
+                            <td>{{form_errors(registrationForm.name)}} </td>
+                            </tr>
+                            <tr>
+                            <td>{{form_label(registrationForm.lastName, 'prenom')}} </td>
+                            <td>{{form_widget(registrationForm.lastName)}} </td>
+                            <td>{{form_errors(registrationForm.lastName)}} </td>
+                            </tr>
+                            <tr>
+                            <td>{{form_label(registrationForm.telephone, 'telephone')}} </td>
+                            <td>{{form_widget(registrationForm.telephone)}} </td>
+                            <td>{{form_errors(registrationForm.telephone)}} </td>
+                            </tr>
+                            <tr>
+                            <td>{{form_label(registrationForm.adresse, 'adresse')}} </td>
+                            <td>{{form_widget(registrationForm.adresse)}} </td>
+                            <td>{{form_errors(registrationForm.adresse)}} </td>
+                            </tr>
+                            <tr>
+                            <td>{{form_label(registrationForm.groupesanguin, 'groupesanguin')}} </td>
+                            <td>{{form_widget(registrationForm.groupesanguin)}} </td>
+                            <td>{{form_errors(registrationForm.groupesanguin)}} </td>
+                            </tr>
+                            <tr>
+                            <td>{{form_label(registrationForm.type, 'type')}} </td>
+                            <td>{{form_widget(registrationForm.type)}} </td>
+                            <td>{{form_errors(registrationForm.type)}} </td>
+                            </tr>
+                            <tr>
+                            <td>{{form_label(registrationForm.email, 'email')}} </td>
+                            <td>{{form_widget(registrationForm.email)}} </td>
+                            <td>{{form_errors(registrationForm.email)}} </td>
+                            </tr>
+                            <tr>
+                            <td>{{form_label(registrationForm.plainPassword, 'password')}} </td>
+                            <td>{{form_widget(registrationForm.plainPassword)}} </td>
+                            <td>{{form_errors(registrationForm.plainPassword)}} </td>
+                            </tr>
+                            </table>
+                            <button class="btn btn-main-md" type="submit">sign up</button>
+                            {{ form_end(registrationForm) }}
+						<div class="new-acount">
+							<p>Already have an account? <a href="login">SIGN IN</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+    
+    {%endblock%}
+</body>
+
+
+
+  
+  {%block javascript%}
+  <!-- JAVASCRIPTS -->
+  <script src="plugins/jquery/jquery.min.js"></script>
+  <script src="plugins/bootstrap/bootstrap.min.js"></script>
+  <script src="plugins/slick/slick.min.js"></script>
+  <script src="plugins/fancybox/jquery.fancybox.min.js"></script>
+  <script src="plugins/syotimer/jquery.syotimer.min.js"></script>
+  <script src="plugins/aos/aos.js"></script>
+  
+  
+  <script src="js/script.js"></script>
+    {%endblock%}
+
+
+</html>

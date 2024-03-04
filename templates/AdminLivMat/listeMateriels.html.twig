@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Materiel{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="my-4">Liste Materiel</h1>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form method="get" action="{{ path('app_admin_list') }}" class="mb-3">
+                <div class="input-group">
+                    <select class="custom-select" id="sort_by" name="sort_by">
+                        <option value="type_asc">type (Croissant)</option>
+                        <option value="type_desc">type (Décroissant)</option>
+                        <option value="date_asc">Date d'expiration (Croissant)</option>
+                        <option value="date_desc">Date d'expiration (Décroissant)</option>
+                    </select>
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Trier</button>
+                    </div>
+                </div>
+            </form>
+
+            <form method="get" action="{{ path('app_admin_list') }}">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="search_query" name="search_query" placeholder="Rechercher par type">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Rechercher</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="table-responsive mt-4">
+        <table class="table table-striped table-hover">
+
+            <thead>
+            
+               
+            </thead>
+            <tbody>
+                
+
+
+
+            <thead class="thead-dark">
+                <tr>
+                    <th>N°</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Quantité</th>
+                    <th>Date expiration</th>
+                    <th>Statut</th>                 
+                    <th>Livreur</th>
+                    <th class="no-content">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if materiels is defined and materiels | length > 0 %}
+                {% for row in materiels%}
+                <tr>
+                    <td>{{row.id}}</td>
+                    <td>{{row.typeM}}</td>
+                    <td>{{row.descriptionM}}</td>
+                    <td>{{row.quantiteM}}</td>
+                    <td>{{ row.dateexpM.format('d-m-Y') }}</td>
+            
+                    <td>{{row.statutM}}</td>
+                    
+                    <td>{{row.livreur}}</td>
+                    <td>
+                        <a href="{{path('app_materiel_modifier',{'id': row.id})}}" class="btn btn-primary submit-fn mt-2" type="submit">Modifier</a>
+                        <a href="{{path('app_materiel_supprimer',{'id': row.id})}}" class="btn btn-primary submit-fn mt-2" type="submit">Supprimer</a>
+                    </td>
+             
+                </tr>
+            {% endfor%}
+            {% endif%}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+ 

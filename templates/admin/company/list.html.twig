@@ -1,0 +1,106 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}List of Companies{% endblock %}
+
+{% block css %}
+    {{ parent() }}
+    <style>
+        /* Add custom CSS styles here */
+        /* Center align the search and sort forms */
+        .search-sort-form {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Style the search input and button */
+        .search-input {
+            width: 250px;
+        }
+
+        /* Style the table headers */
+        .table th {
+            font-weight: bold;
+            vertical-align: middle;
+        }
+
+        /* Style the table actions buttons */
+        .table-actions {
+            white-space: nowrap;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>List of Companies</h1>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="search-sort-form">
+                    <form method="get" action="{{ path('company_show') }}">
+                        <div class="form-row align-items-center">
+                            <div class="col-auto">
+                                <label class="sr-only" for="sort_by">Sort By</label>
+                                <select class="form-control" id="sort_by" name="sort_by">
+                                    <option value="name_asc">Name (Ascending)</option>
+                                    <option value="name_desc">Name (Descending)</option>
+                                    <option value="email_asc">Email (Ascending)</option>
+                                    <option value="email_desc">Email (Descending)</option>
+                                    <option value="country_asc">Country (Ascending)</option>
+                                    <option value="country_desc">Country (Descending)</option>
+                                </select>
+                            </div>
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-primary">Sort</button>
+                            </div>
+                        </div>
+                    </form>
+                    <form method="get" action="{{ path('company_show') }}">
+                        <div class="form-row align-items-center">
+                            <div class="col-auto">
+                                <input type="text" class="form-control search-input" id="search_query" name="search_query" placeholder="Search by Company Name">
+                            </div>
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Phone Number</th>
+                                <th>Email</th>
+                                <th>Website</th>
+                                <th>Country</th>
+                                <th>Description</th>
+                                <th class="table-actions">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for company in companies %}
+                                <tr>
+                                    <td>{{ company.getIdC() }}</td>
+                                    <td>{{ company.getNomC() }}</td>
+                                    <td>{{ company.getAdresse() }}</td>
+                                    <td>{{ company.getNumTel() }}</td>
+                                    <td>{{ company.getMail() }}</td>
+                                    <td>{{ company.getSiteWeb() }}</td>
+                                    <td>{{ company.getPaysC() }}</td>
+                                    <td>{{ company.getDescriptionC() }}</td>
+                                    <td class="table-actions">
+                                        <a href="{{ path('company_show_one', {'id': company.getIdC()}) }}" class="btn btn-primary">Details</a>
+                                        <a href="{{ path('company_remove', {'id': company.getIdC()}) }}" class="btn btn-danger">Remove</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

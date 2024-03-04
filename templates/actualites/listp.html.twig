@@ -1,0 +1,104 @@
+ {% block body %}
+
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 2px solid #333; /* Ajout de la bordure */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            max-width: 150px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .contact-info {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+
+      <div class="header">
+            
+            <h1>Hemotransfert</h1>
+            <div class="contact-info">
+                <p>Adresse: 123 Rue Principale, Ville, Pays</p>
+                <p>Téléphone: +123456789</p>
+                <p>Email: contact@hemotransfert.com</p>
+            </div>
+
+
+           <div class="welcome-text">
+                            <h1>Actualites index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Date</th>
+                <th>Priorite</th>
+
+   
+            </tr>
+        </thead>
+        <tbody>
+        {% for actualite in actualites %}
+            <tr>
+                <td>{{ actualite.id }}</td>
+                <td>{{ actualite.titre }}</td>
+                <td>{{ actualite.date ? actualite.date|date('Y-m-d') : '' }}</td>
+                <td>{{ actualite.priorite }}</td>
+
+                <td>
+
+                  
+            </tr>
+       
+            
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+
+
+
+
+    
+
+
+    {% endblock %}

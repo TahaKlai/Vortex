@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Hemotransfert-Admin </title>
+    <!-- Favicon icon -->
+     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon.png') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/owl-carousel/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/owl-carousel/css/owl.theme.default.min.css') }}">
+    <link href="{{ asset('vendor/jqvmap/css/jqvmap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+
+
+</head>
+
+<body>
+
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+ 
+
+
+    <div id="main-wrapper">
+
+        <div class="nav-header">
+            <a href="./" class="brand-logo">
+                <img class="logo-abbr" src="./images/logo.png" alt="">
+                <img class="logo-compact" src="./images/logo-text.png" alt="">
+                <img class="brand-title" src="./images/logo-text.png" alt="">
+            </a>
+
+            <div class="nav-control">
+                <div class="hamburger">
+                    <span class="line"></span><span class="line"></span><span class="line"></span>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="header">
+            <div class="header-content">
+                <nav class="navbar navbar-expand">
+                    <div class="collapse navbar-collapse justify-content-between">
+                        <div class="header-left">
+                            <div class="search_bar dropdown">
+                              
+                               
+                            </div>
+                        </div>
+
+                        <ul class="navbar-nav header-right">
+                            <li class="nav-item dropdown notification_dropdown">
+                                <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+                                    <i class="mdi mdi-bell"></i>
+                                    <div class="pulse-css"></div>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <ul class="list-unstyled">
+                                        <li class="media dropdown-item">
+                                            <span class="success"><i class="ti-user"></i></span>
+                                            <div class="media-body">
+                                                <a href="#">
+                                                    <p><strong>Martin</strong> has added a <strong>customer</strong> Successfully
+                                                    </p>
+                                                </a>
+                                            </div>
+                                            <span class="notify-time">3:20 am</span>
+                                        </li>
+                                        <li class="media dropdown-item">
+                                            <span class="primary"><i class="ti-shopping-cart"></i></span>
+                                            <div class="media-body">
+                                                <a href="#">
+                                                    <p><strong>Jennifer</strong> purchased Light Dashboard 2.0.</p>
+                                                </a>
+                                            </div>
+                                            <span class="notify-time">3:20 am</span>
+                                        </li>
+                                        <li class="media dropdown-item">
+                                            <span class="danger"><i class="ti-bookmark"></i></span>
+                                            <div class="media-body">
+                                                <a href="#">
+                                                    <p><strong>Robin</strong> marked a <strong>ticket</strong> as unsolved.
+                                                    </p>
+                                                </a>
+                                            </div>
+                                            <span class="notify-time">3:20 am</span>
+                                        </li>
+                                        <li class="media dropdown-item">
+                                            <span class="primary"><i class="ti-heart"></i></span>
+                                            <div class="media-body">
+                                                <a href="#">
+                                                    <p><strong>David</strong> purchased Light Dashboard 1.0.</p>
+                                                </a>
+                                            </div>
+                                            <span class="notify-time">3:20 am</span>
+                                        </li>
+                                        <li class="media dropdown-item">
+                                            <span class="success"><i class="ti-image"></i></span>
+                                            <div class="media-body">
+                                                <a href="#">
+                                                    <p><strong> James.</strong> has added a<strong>customer</strong> Successfully
+                                                    </p>
+                                                </a>
+                                            </div>
+                                            <span class="notify-time">3:20 am</span>
+                                        </li>
+                                    </ul>
+                                    <a class="all-notification" href="#">See all notifications <i
+                                            class="ti-arrow-right"></i></a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown header-profile">
+                                <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+                                    <i class="mdi mdi-account"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a href="./app-profile.html" class="dropdown-item">
+                                        <i class="icon-user"></i>
+                                        <span class="ml-2">Profile </span>
+                                    </a>
+                                    <a href="./email-inbox.html" class="dropdown-item">
+                                        <i class="icon-envelope-open"></i>
+                                        <span class="ml-2">Inbox </span>
+                                    </a>
+                                    <a href="./page-login.html" class="dropdown-item">
+                                        <i class="icon-key"></i>
+                                        <span class="ml-2">Logout </span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="quixnav">
+            <div class="quixnav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li class="nav-label first"><a href="{{ path('app_admin') }}">Main Menu</a></li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                                class="icon icon-single-04"></i><span class="nav-text">stock</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ path('app_stock_cotroller') }}">Liste des stocks</a></li>
+                            <li><a href="{{ path('centre.index') }}">liste des centres</a></li>
+                        </ul>
+                    </li>
+                    <li>
+					
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon icon-single-04"></i><span class="nav-text">Companies</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ path('company_new') }}">Add Company</a></li>
+                            <li><a href="{{ path('company_show') }}">Show All Companies</a></li>
+							<li><a href="{{ path('company_statistics') }}">Statistique Companies</a></li>
+                        </ul>
+                    </li>
+                   <li>
+    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+        <i class="icon icon-single-04"></i><span class="nav-text">Volunteers</span>
+    </a>
+    <ul aria-expanded="false">
+        <li><a href="{{ path('volunteer_new') }}">Add Volunteer</a></li>
+        <li><a href="{{ path('volunteer_show') }}">Show All Volunteers</a></li>
+        <li><a href="{{ path('volunteer_Statistics') }}">Statistics</a></li>
+    </ul>
+</li>
+<li>
+    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+        <i class="icon icon-single-04"></i><span class="nav-text">Materiel</span>
+    </a>
+    <ul aria-expanded="false">
+        <li><a href="{{ path('app_admin_add') }}">Add Materiel</a></li>
+        <li><a href="{{ path('app_admin_list') }}">Show Materiel</a></li>
+       
+       
+    </ul>
+</li>
+<li>
+    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+        <i class="icon icon-single-04"></i><span class="nav-text">Livreur</span>
+    </a>
+    <ul aria-expanded="false">
+        <li><a href="{{ path('app_admin_livreur_add') }}">Add Livreur</a></li>
+        <li><a href="{{ path('app_admin_livreur_list') }}">Show Livreurs</a></li>
+        <li><a href="{{ path('app_contact') }}">mail contact</a></li>
+        
+    </ul>
+</li>
+<li>
+    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+        <i class="icon icon-single-04"></i><span class="nav-text">utilisateurs</span>
+    </a>
+    <ul aria-expanded="false">
+        <li><a href="{{ path('app_user') }}">show user</a></li>
+  
+    </ul>
+</li>
+        <li>
+         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+        <i class="icon icon-single-04"></i><span class="nav-text">actualités</span>
+    </a>
+    <ul aria-expanded="false">
+        <li><a href="{{ path('app_admin_livreur_add') }}">add actualités</a></li>
+        <li><a href="{{ path('app_admin_livreur_add') }}">show actualités</a></li>
+        <li><a href="{{ path('app_admin_livreur_list') }}">edit actualités</a></li>
+        </li>
+    </ul>
+    <li>
+    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+        <i class="icon icon-single-04"></i><span class="nav-text">commentaire</span>
+    </a>
+    <ul aria-expanded="false">
+        <li><a href="{{ path('app_admin_livreur_add') }}">Add commentaire</a></li>
+        <li><a href="{{ path('app_admin_livreur_list') }}">Show commentaire</a></li>
+        <li><a href="{{ path('app_contact') }}">edit commentaire</a></li>
+        
+    </ul>
+</li>
+</li>
+    </ul>
+</li>
+                </ul>
+                   
+
+                   
+                   
+                    
+                </ul>
+                <li>
+   
+				
+            </div>
+
+
+        </div>
+      
+  <div class="content-body">
+            {% block body %}
+
+            
+            {% endblock %}
+        </div>
+        
+        <div id="stockLowNotification" class="notification">
+            <div class="content">
+              <div class="identifier"></div>
+              <div class="text">Attention : Certains matériels ont un stock bas </div>
+            </div>
+          </div>
+
+       {%block footer%}
+
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Vortex</a> 2024</p>
+            </div>
+        </div>
+        {%endblock%}
+   
+
+     
+
+
+    </div>
+
+    <!-- Required vendors -->
+   <script src="{{ asset('vendor/global/global.min.js') }}"></script>
+<script src="{{ asset('js/quixnav-init.js') }}"></script>
+<script src="{{ asset('js/custom.min.js') }}"></script>
+
+<!-- Inclure le fichier JavaScript pour les notifications -->
+    <script src="{{ asset('js/notifications.js') }}"></script>
+
+<!-- Vectormap -->
+<script src="{{ asset('vendor/raphael/raphael.min.js') }}"></script>
+<script src="{{ asset('vendor/morris/morris.min.js') }}"></script>
+
+<script src="{{ asset('vendor/circle-progress/circle-progress.min.js') }}"></script>
+<script src="{{ asset('vendor/chart.js/Chart.bundle.min.js') }}"></script>
+
+<script src="{{ asset('vendor/gaugeJS/dist/gauge.min.js') }}"></script>
+
+<!--  flot-chart js -->
+<script src="{{ asset('vendor/flot/jquery.flot.js') }}"></script>
+<script src="{{ asset('vendor/flot/jquery.flot.resize.js') }}"></script>
+
+<!-- Owl Carousel -->
+<script src="{{ asset('vendor/owl-carousel/js/owl.carousel.min.js') }}"></script>
+
+<!-- Counter Up -->
+<script src="{{ asset('vendor/jquery.counterup/jquery.counterup.min.js') }}"></script>
+
+<script src="{{ asset('js/dashboard/dashboard-1.js') }}"></script>
+
+</body>
+
+</html>
